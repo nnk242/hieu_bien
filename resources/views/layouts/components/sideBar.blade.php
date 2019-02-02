@@ -43,9 +43,9 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="pages/forms/basic_elements.html">
-                <i class="menu-icon mdi mdi-backup-restore"></i>
-                <span class="menu-title">Form elements</span>
+            <a class="nav-link" href="{{route("post.index")}}">
+                <i class="menu-icon mdi mdi-newspaper"></i>
+                <span class="menu-title">Bài viết</span>
             </a>
         </li>
         <li class="nav-item">

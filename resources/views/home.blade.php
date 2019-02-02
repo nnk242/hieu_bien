@@ -13,7 +13,7 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                            <textarea cols="60" id="area2" style="width: 100%"></textarea>
+                        <textarea cols="60" id="nicEdit" style="width: 100%"></textarea>
                     </div>
                 </div>
             </div>
@@ -21,11 +21,5 @@
     </div>
 @endsection
 @section('js')
-    <script src="js/nicedit/nicEdit.js" type="text/javascript"></script>
-
-    <script type="text/javascript">
-        bkLib.onDomLoaded(function() {
-            new nicEditor({fullPanel : true}).panelInstance('area2');
-        });
-    </script>
+    @include('components.nicEdit.nicEdit')
 @endsection

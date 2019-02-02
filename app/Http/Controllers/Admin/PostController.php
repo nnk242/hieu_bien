@@ -8,6 +8,15 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function model() {
+        return Post::class;
+    }
+
     public function index()
     {
         $posts = Post::paginate(10);
@@ -43,7 +52,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+
     }
 
     /**
@@ -54,7 +63,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('admin.post.edit', compact('post'));
     }
 
     /**
@@ -69,14 +78,12 @@ class PostController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Post $post)
     {
-        //
+        if($post->delete())
+        {
+            return redirect()->back()->with('success', 'Xóa thành công!');
+        } else
+            return redirect()->back()->with('error', 'Xóa thất bại!');
     }
 }

@@ -10,16 +10,18 @@
 
     <title>@yield('title')</title>
     <!-- plugins:css -->
-    <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
-    <link rel="stylesheet" href="vendors/css/vendor.bundle.addons.css">
+    <link rel="stylesheet" href="/admin/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="/admin/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="/admin/vendors/css/vendor.bundle.addons.css">
     <!-- endinject -->
     <!-- plugin css for this page -->
-    <!-- End plugin css for this page -->
+    <link rel="stylesheet" href="/admin/vendors/iconfonts/font-awesome/css/font-awesome.css">
     <!-- inject:css -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/admin/css/style.css">
     <!-- endinject -->
-    <link rel="shortcut icon" href="images/favicon.png" />
+    <!-- css -->
+    @yield('css')
+    <link rel="shortcut icon" href="/images/favicon.png" />
 </head>
 
 <body>
@@ -40,7 +42,7 @@
             <footer class="footer">
                 <div class="container-fluid clearfix">
             <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Copyright © 2018
-              <a href="http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>. All rights reserved.</span>
+              <a href="/admin/http://www.bootstrapdash.com/" target="_blank">Bootstrapdash</a>. All rights reserved.</span>
                     <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with
               <i class="mdi mdi-heart text-danger"></i>
             </span>
@@ -55,14 +57,14 @@
 <!-- container-scroller -->
 
 <!-- plugins:js -->
-<script src="vendors/js/vendor.bundle.base.js"></script>
-<script src="vendors/js/vendor.bundle.addons.js"></script>
+<script src="/admin/vendors/js/vendor.bundle.base.js"></script>
+<script src="/admin/vendors/js/vendor.bundle.addons.js"></script>
 <!-- endinject -->
 <!-- Plugin js for this page-->
 <!-- End plugin js for this page-->
 <!-- inject:js -->
-<script src="js/off-canvas.js"></script>
-<script src="js/misc.js"></script>
+<script src="/admin/js/off-canvas.js"></script>
+<script src="/admin/js/misc.js"></script>
 <!-- endinject -->
 <!-- Custom -->
 @yield('js')

@@ -142,6 +142,7 @@
                 <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown"
                    aria-expanded="false">
                     <span class="profile-text">Hello, {{ Auth::user()->name }} !</span>
+                    <i class="fa fa-user"></i>
                     {{--<img class="img-xs rounded-circle" src="images/faces/face1.jpg" alt="Profile image">--}}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
