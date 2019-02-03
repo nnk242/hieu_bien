@@ -20,4 +20,5 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/dashboard', 'Admin\DashboardController@index')->name('dashboard');
     Route::resource('/post', 'Admin\PostController');
+    Route::get('/post/edit/changeStatus}', 'Admin\PostController@changeStatus')->name('post.changeStatus');
 });

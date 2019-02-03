@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/css/iziModal.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/css/iziModal.min.css"/>
     @include('components.message.css')
 @endsection
 
@@ -33,9 +33,8 @@
                                 <td>{{$post->introduce}}</td>
                                 <td>{!! str_limit(strip_tags($post->content), $limit = 50, $end = '...') !!}</td>
                                 <td>
-
-                                    <label
-                                        class="badge {{$post->status == 'show'? 'badge-warning' : 'badge-secondary'}}">{{$post->status}}</label>
+                                    <a href="{{route('post.changeStatus', ['id' => $post->id])}}"
+                                       class="badge {{$post->status == 'show'? 'badge-warning' : 'badge-secondary'}}">{{$post->status}}</a>
                                 </td>
                                 <td>
                                     <label class="badge badge-success">{{$post->created_at}}</label>
@@ -45,7 +44,9 @@
                                             class="fa fa-eye"></i></label>
                                     <a title="Sửa" href="{{route('post.edit', $post->id)}}" class="badge badge-primary"><i
                                             class="fa fa-pencil-square-o"></i></a>
-                                    <a title="Xóa" href="#" class="badge badge-danger removeItem" data-id="{{$post->id}}" data-title="{{$post->title}}"><i class="fa fa-trash-o"></i></a>
+                                    <a title="Xóa" href="#" class="badge badge-danger removeItem"
+                                       data-id="{{$post->id}}" data-title="{{$post->title}}"><i
+                                            class="fa fa-trash-o"></i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -58,12 +59,14 @@
             </div>
         </div>
     </div>
-    <div id="modal-remove" data-izimodal-title="Bạn chắc chắn muốn xóa?" data-izimodal-subtitle="" style="display: none">
+    <div id="modal-remove" data-izimodal-title="Bạn chắc chắn muốn xóa?" data-izimodal-subtitle=""
+         style="display: none">
         <form METHOD="POST" class="bg-danger" action="{{route('post.store')}}" id="form-remove">
             {{ csrf_field() }}
             {{ method_field('DELETE') }}
             <div class="text-center p-2">
-                <button class="btn btn-warning" type="submit">Có</button><button class="btn btn-behance" data-izimodal-close="">không</button>
+                <button class="btn btn-warning" type="submit">Có</button>
+                <button class="btn btn-behance" data-izimodal-close="">không</button>
             </div>
         </form>
     </div>
@@ -72,7 +75,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/js/iziModal.min.js"></script>
     <script>
 
-        $(document).on('click', '.removeItem', function(event) {
+        $(document).on('click', '.removeItem', function (event) {
             event.preventDefault()
             var title = $(this).data("title")
             var id = $(this).data("id")

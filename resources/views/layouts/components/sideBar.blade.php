@@ -14,9 +14,11 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn btn-success btn-block">Thêm bài viết mới
-                    <i class="mdi mdi-plus"></i>
-                </button>
+                <a href="{{route('post.create')}}">
+                    <button class="btn btn-success btn-block">Thêm bài viết mới
+                        <i class="mdi mdi-plus"></i>
+                    </button>
+                </a>
             </div>
         </li>
         <li class="nav-item">

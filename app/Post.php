@@ -9,5 +9,5 @@ class Post extends Model
     //
     protected $table = 'posts';
 
-    protected $fillable = ['title', 'title_seo', 'introduce', 'content', 'status', 'author'];
+    protected $fillable = ['image', 'title', 'title_seo', 'introduce', 'content', 'status', 'author', 'user_id'];
 }
