@@ -2,27 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Message;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
-        return view('home');
+        return view('frontend.index');
+    }
+
+    public function sendMessage(Request $request)
+    {
+        Message::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'content' => $request->input('content'),
+            'ip' => $request->ip()
+        ]);
+        return redirect()->back()->with('success', 'Gửi tin nhắn thành công!');
     }
 }

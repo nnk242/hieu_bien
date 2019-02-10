@@ -1,10 +1,10 @@
 <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
     <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
-        <a class="navbar-brand brand-logo" href="index.html">
-            <img src="images/logo.svg" alt="logo"/>
+        <a class="navbar-brand brand-logo" href="{{route('dashboard')}}">
+            <i class="fa fa-heart-o"></i>
         </a>
-        <a class="navbar-brand brand-logo-mini" href="index.html">
-            <img src="images/logo-mini.svg" alt="logo"/>
+        <a class="navbar-brand brand-logo-mini" href="{{route('dashboard')}}">
+            <i class="fa fa-heart"></i>
         </a>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-center">

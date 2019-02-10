@@ -1,6 +1,5 @@
 @extends('layouts.admin')
 @section('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/css/iziModal.min.css"/>
     @include('components.message.css')
 @endsection
 
@@ -72,7 +71,6 @@
     </div>
 @endsection
 @section('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/js/iziModal.min.js"></script>
     <script>
 
         $(document).on('click', '.removeItem', function (event) {

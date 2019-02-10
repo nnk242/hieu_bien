@@ -4,12 +4,12 @@
             <div class="nav-link">
                 <div class="user-wrapper">
                     <div class="profile-image">
-                        <img src="images/faces/face1.jpg" alt="profile image">
+                        <i class="fa fa-user-circle fa-2x"></i>
                     </div>
                     <div class="text-wrapper">
-                        <p class="profile-name">Richard V.Welsh</p>
+                        <p class="profile-name">{{Auth::user()->name}}</p>
                         <div>
-                            <small class="designation text-muted">Manager</small>
+                            <small class="designation text-muted">{{Auth::user()->role}}</small>
                             <span class="status-indicator online"></span>
                         </div>
                     </div>
@@ -22,7 +22,7 @@
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="{{route('dashboard')}}">
                 <i class="menu-icon mdi mdi-television"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
