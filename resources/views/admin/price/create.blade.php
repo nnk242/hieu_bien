@@ -4,7 +4,7 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Thêm danh mục</h4>
+                    <h4 class="card-title">Thêm bài viết</h4>
                     <form class="forms-sample" action="{{ route('post.store') }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">

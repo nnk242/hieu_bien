@@ -1,20 +1,35 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\price;
+use App\Http\Controllers\Component\MessageAdmin;
+use App\Http\Controllers\Controller;
+use App\Price;
+use App\Type;
 use Illuminate\Http\Request;
 
 class PriceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    protected function newMessage() {
+        return MessageAdmin::newMessage();
+    }
+
+    public function model()
+    {
+        return Price::class;
+    }
+
     public function index()
     {
-        //
+        $types = Type::all();
+        $posts = Price::paginate(10);
+        $newMessage = $this->newMessage();
+        return view('admin.price.index', compact('posts', 'newMessage', 'types'));
     }
 
     /**
@@ -41,10 +56,10 @@ class PriceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\price  $price
+     * @param  \App\Price  $price
      * @return \Illuminate\Http\Response
      */
-    public function show(price $price)
+    public function show(Price $price)
     {
         //
     }
@@ -52,10 +67,10 @@ class PriceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\price  $price
+     * @param  \App\Price  $price
      * @return \Illuminate\Http\Response
      */
-    public function edit(price $price)
+    public function edit(Price $price)
     {
         //
     }
@@ -64,10 +79,10 @@ class PriceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\price  $price
+     * @param  \App\Price  $price
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, price $price)
+    public function update(Request $request, Price $price)
     {
         //
     }
@@ -75,10 +90,10 @@ class PriceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\price  $price
+     * @param  \App\Price  $price
      * @return \Illuminate\Http\Response
      */
-    public function destroy(price $price)
+    public function destroy(Price $price)
     {
         //
     }

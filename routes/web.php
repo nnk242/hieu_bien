@@ -34,6 +34,10 @@ Route::group(['prefix' => 'admin'], function () {
     //category
     Route::resource('/category', 'Admin\CategoryController');
     Route::get('/category/edit/changeStatus', 'Admin\CategoryController@changeStatus')->name('category.changeStatus');
+
+    //category
+    Route::resource('/price', 'Admin\PriceController');
+
     //change password
     Route::post('/changePassword', 'Admin\DashboardController@changePassword')->name('password.change');
 });

@@ -28,7 +28,7 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::paginate(10);
+        $posts = $this->model()::paginate(10);
         $newMessage = $this->newMessage();
         return view('admin.post.index', compact('posts', 'newMessage'));
     }

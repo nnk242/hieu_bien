@@ -41,7 +41,7 @@ class CategoryController extends Controller
     public function create()
     {
         $newMessage = $this->newMessage();
-        return view("admin.post.create", compact('newMessage'));
+        return view("admin.category.create", compact('newMessage'));
     }
 
     /**

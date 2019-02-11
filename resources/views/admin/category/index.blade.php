@@ -3,10 +3,11 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Bài viết</h4>
+                <h4 class="card-title">Danh mục</h4>
                 <p class="card-description">
-                    <code>.Có tổng {{$posts->total()}} bài viết</code>
+                    <code>.Có tổng {{$posts->total()}} Danh mục</code>
                 </p>
+                <a href="{{route('category.create')}}"><button class="btn btn-outline-success"><i class="fa fa-plus"></i>Thêm danh mục</button></a>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
