@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use App\Http\Controllers\Component\MessageAdmin;
 use App\Http\Controllers\Controller;
-use App\Post;
 use App\Services\ImgurService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class PostController extends Controller
+class CategoryController extends Controller
 {
     public function __construct()
     {
@@ -21,16 +21,16 @@ class PostController extends Controller
         return MessageAdmin::newMessage();
     }
 
-    public function model()
+    private function model()
     {
-        return Post::class;
+        return Category::class;
     }
 
     public function index()
     {
-        $posts = Post::paginate(10);
+        $posts = $this->model()::paginate(10);
         $newMessage = $this->newMessage();
-        return view('admin.post.index', compact('posts', 'newMessage'));
+        return view('admin.category.index', compact('posts', 'newMessage'));
     }
 
     /**
@@ -85,37 +85,19 @@ class PostController extends Controller
         return redirect()->back()->with('success', 'Thêm thành công!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Post $post
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Post $post)
+    public function show(Category $category)
     {
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Post $post
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Post $post)
+    public function edit(Category $category)
     {
         $newMessage = $this->newMessage();
-        return view('admin.post.edit', compact('post', 'newMessage'));
+        return view('admin.category.edit', compact('category', 'newMessage'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Post $post
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Post $post)
+
+    public function update(Request $request, Category $category)
     {
         $items = $request->all();
 
@@ -130,7 +112,7 @@ class PostController extends Controller
 
         $data = [
             'title' => $request->title,
-            'title_seo' => $this->model()::findOrFail($post->id)->where('title_seo', str_seo($request->title))->count() == 1 ||
+            'title_seo' => $this->model()::findOrFail($category->id)->where('title_seo', str_seo($request->title))->count() == 1 ||
             $this->model()::where('title_seo', str_seo($request->title))->count() <= 1 ?
                 str_seo($request->title) :
                 str_seo($request->title) . time() . str_random(4),
@@ -145,14 +127,14 @@ class PostController extends Controller
             $image = ['image' => ImgurService::uploadImage($items['image']->getRealPath())];
             $data = array_merge_recursive($image, $data);
         }
-        $post->update($data);
+        $category->update($data);
 
         return redirect()->back()->with('success', 'Sửa thành công!');
     }
 
-    public function destroy(Post $post)
+    public function destroy(Category $category)
     {
-        if ($post->delete()) {
+        if ($category->delete()) {
             return redirect()->back()->with('success', 'Xóa thành công!');
         } else
             return redirect()->back()->with('error', 'Xóa thất bại!');

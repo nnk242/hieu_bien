@@ -28,20 +28,6 @@ class DashboardController extends Controller
         return view('admin.dashboard', compact('newMessage'));
     }
 
-    private function adminCredentialRules(array $data)
-    {
-        $messages = [
-            'old_password.required' => 'Mật khẩu không chính xác',
-            'password.required' => 'Nhập lại mật khẩu',
-        ];
-        $validator = Validator::make($data, [
-            'old_password' => 'required',
-            'password' => 'required|same:password',
-            're_password' => 'required|same:password',
-        ], $messages);
-        return $validator;
-    }
-
     public function changePassword(Request $request)
     {
 

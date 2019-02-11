@@ -31,6 +31,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::resource('/post', 'Admin\PostController');
     Route::get('/post/edit/changeStatus', 'Admin\PostController@changeStatus')->name('post.changeStatus');
 
+    //category
+    Route::resource('/category', 'Admin\CategoryController');
+    Route::get('/category/edit/changeStatus', 'Admin\CategoryController@changeStatus')->name('category.changeStatus');
     //change password
     Route::post('/changePassword', 'Admin\DashboardController@changePassword')->name('password.change');
 });

@@ -28,21 +28,10 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <a class="nav-link" href="{{route('category.index')}}">
                 <i class="menu-icon mdi mdi-content-copy"></i>
-                <span class="menu-title">Basic UI Elements</span>
-                <i class="menu-arrow"></i>
+                <span class="menu-title">Danh mục</span>
             </a>
-            <div class="collapse" id="ui-basic">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="pages/ui-features/typography.html">Typography</a>
-                    </li>
-                </ul>
-            </div>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{route("post.index")}}">
@@ -51,15 +40,9 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="pages/charts/chartjs.html">
-                <i class="menu-icon mdi mdi-chart-line"></i>
-                <span class="menu-title">Charts</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="pages/tables/basic-table.html">
+            <a class="nav-link" href="{{route('price.index')}}">
                 <i class="menu-icon mdi mdi-table"></i>
-                <span class="menu-title">Tables</span>
+                <span class="menu-title">Bảng giá</span>
             </a>
         </li>
         <li class="nav-item">
