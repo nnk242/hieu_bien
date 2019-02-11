@@ -8,17 +8,17 @@
                     <div class="form-group">
                         <label for="name" class="text-light">Họ và tên</label>
                         <input type="text" class="form-control" id="name"
-                               placeholder="Nhập họ và tên" name="name">
+                               placeholder="Nhập họ và tên" name="name" required>
                     </div>
                     <div class="form-group">
                         <label for="email" class="text-light">Email</label>
                         <input type="email" class="form-control" id="email"
-                               placeholder="Nhập email" name="email">
+                               placeholder="Nhập email" name="email" required>
                     </div>
                     <div class="form-group">
                         <label for="content" class="text-light">Nội dung</label>
                         <textarea type="password" class="form-control" id="content"
-                                  placeholder="Nhập nội dung không quá 500 từ" rows="5" maxlength="500" name="content"></textarea>
+                                  placeholder="Nhập nội dung không quá 500 từ" rows="5" minlength="20" maxlength="500" name="content" required></textarea>
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-primary">Gửi phản hồi</button>

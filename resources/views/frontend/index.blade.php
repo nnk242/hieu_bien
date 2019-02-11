@@ -1,5 +1,9 @@
 @extends('layouts.frontend.frontend')
 
+@section('css')
+    @include('components.message.css')
+@endsection
+
 @section('content')
     <main>
         <section id="main">
@@ -298,4 +302,8 @@
             </div>
         </section>
     </main>
+@endsection
+@section('js')
+    @include('components.message.success.js')
+    @include('components.message.error.js')
 @endsection

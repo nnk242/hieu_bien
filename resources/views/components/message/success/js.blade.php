@@ -3,7 +3,7 @@
     <script>
         iziToast.success({
             timeout: 5000,
-            icon: 'fa fa-trash',
+            icon: 'fa fa-check',
             title: 'OK',
             message: '{!! \Session::get('success') !!}'
         })

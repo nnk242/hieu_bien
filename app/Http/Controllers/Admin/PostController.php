@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Component\MessageAdmin;
 use App\Http\Controllers\Controller;
 use App\Post;
 use App\Services\ImgurService;
@@ -16,6 +17,10 @@ class PostController extends Controller
         $this->middleware('auth');
     }
 
+    protected function newMessage() {
+        return MessageAdmin::newMessage();
+    }
+
     public function model()
     {
         return Post::class;
@@ -24,7 +29,8 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::paginate(10);
-        return view('admin.post.index', compact('posts'));
+        $newMessage = $this->newMessage();
+        return view('admin.post.index', compact('posts', 'newMessage'));
     }
 
     /**
