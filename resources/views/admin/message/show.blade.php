@@ -1,8 +1,4 @@
 @extends('layouts.admin')
-@section('css')
-    @include('components.message.css')
-@endsection
-
 @section('content')
     <div class="col-lg-8 grid-margin stretch-card offset-2">
         <div class="card">
@@ -70,6 +66,4 @@
             // loop: false
         });
     </script>
-    @include('components.message.success.js')
-    @include('components.message.error.js')
 @endsection

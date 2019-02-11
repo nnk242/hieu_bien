@@ -30,4 +30,7 @@ Route::group(['prefix' => 'admin'], function () {
     //post
     Route::resource('/post', 'Admin\PostController');
     Route::get('/post/edit/changeStatus', 'Admin\PostController@changeStatus')->name('post.changeStatus');
+
+    //change password
+    Route::post('/changePassword', 'Admin\DashboardController@changePassword')->name('password.change');
 });

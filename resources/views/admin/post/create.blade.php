@@ -1,8 +1,4 @@
 @extends('layouts.admin')
-@section('css')
-    @include('components.message.css')
-@endsection
-
 @section('content')
     <div class="justify-content-center row">
         <div class="col-md-6 grid-margin stretch-card">
@@ -84,8 +80,6 @@
 
 @endsection
 @section('js')
-    @include('components.message.success.js')
-    @include('components.message.error.js')
     @include('components.nicEdit.nicEdit')
     <script>
         $("input[name='author_type']").on('click', function () {
