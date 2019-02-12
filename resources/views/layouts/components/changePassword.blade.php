@@ -1,6 +1,6 @@
 <div id="modal-change-password" data-izimodal-title="Đổi mật khẩu?" data-izimodal-subtitle="Thay đổi mật khẩu"
      style="display: none">
-    <form METHOD="POST" action="{{route('password.change')}}" id="form-remove">
+    <form METHOD="POST" action="{{route('password.change')}}">
         {{ csrf_field() }}
         <div class="m-3">
             <div class="form-group">

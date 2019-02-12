@@ -15,10 +15,19 @@ class CreatePricesTable extends Migration
     {
         Schema::create('prices', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name', 255);
+            $table->string('description', 255)->nullable();
             $table->string('price');
             $table->enum('per', ['răng', 'cặp', 'hàm']);
-            $table->integer('type_id');
+            $table->integer('type_id')->unsigned();
+            $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');;
+            $table->enum('status', ['show', 'hide']);
+            $table->timestamps();
+        });
+
+        Schema::create('types', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 255);
             $table->timestamps();
         });
     }
@@ -31,5 +40,6 @@ class CreatePricesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('prices');
+        Schema::dropIfExists('types');
     }
 }

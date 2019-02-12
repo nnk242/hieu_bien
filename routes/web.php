@@ -37,6 +37,11 @@ Route::group(['prefix' => 'admin'], function () {
 
     //category
     Route::resource('/price', 'Admin\PriceController');
+    Route::post('/price/type/add', 'Admin\PriceController@addType')->name('type.create');
+    Route::delete('/price/type/delete/{type}', 'Admin\PriceController@destroyType')->name('type.destroy');
+    Route::get('/price/type/{type}/edit', 'Admin\PriceController@editType')->name('type.edit');
+    Route::put('/price/type/{type}', 'Admin\PriceController@updateType')->name('type.update');
+    Route::get('/price/edit/changeStatus', 'Admin\PriceController@changeStatus')->name('price.changeStatus');
 
     //change password
     Route::post('/changePassword', 'Admin\DashboardController@changePassword')->name('password.change');

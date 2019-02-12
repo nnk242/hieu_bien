@@ -54,7 +54,7 @@ class PostController extends Controller
     {
         $items = $request->all();
 
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make($items, [
             'title' => 'required',
             'introduce' => 'required',
             'content' => 'required',
@@ -96,12 +96,6 @@ class PostController extends Controller
 
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Post $post
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Post $post)
     {
         $newMessage = $this->newMessage();
@@ -119,7 +113,7 @@ class PostController extends Controller
     {
         $items = $request->all();
 
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make($items, [
             'title' => 'required',
             'introduce' => 'required',
             'content' => 'required'

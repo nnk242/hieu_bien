@@ -4,56 +4,50 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Sửa bài viết</h4>
+                    <h4 class="card-title">Sửa giá</h4>
                     <p class="card-description">
-                        {{$category->title}}
+                        {{$price->title}}
                     </p>
-                    <form class="forms-sample" action="{{ route('category.update', $category->id) }}" method="POST" enctype="multipart/form-data">
+                    <form class="forms-sample" action="{{ route('price.update', $price->id) }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
-                            <label for="title">Tiêu đề</label>
-                            <input type="text" class="form-control" id="title" placeholder="Tiêu đề"
-                                   value="{{$category->title}}" name="title" required>
+                            <label for="name">Tên loại</label>
+                            <input type="text" class="form-control" id="name" placeholder="Tên loại"
+                                   value="{{$price->name}}" name="name" required>
                         </div>
                         <div class="form-group">
-                            <input name="link_image" hidden>
-                            <label for="image">Hình ảnh tiêu đề</label>
-                            <div class="input-group col-xs-12">
-                                <input type="file" class="form-control" id="image" name="image"
-                                       placeholder="Upload Image">
-                            </div>
+                            <label for="introduce">Giới thiệu</label>
+                            <textarea class="form-control" id="introduce" rows="2" placeholder="Giới thiệu"
+                                      name="description" required>{{$price->description}}</textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="introduce">Giới thiệu bài viết</label>
-                            <textarea class="form-control" id="introduce" rows="2" placeholder="Giới thiệu bài viết"
-                                      name="introduce" required>{{$category->introduce}}</textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="nicEdit">Nội dung</label>
-                            <textarea cols="60" id="nicEdit" style="width: 100%" placeholder="Nội dung" name="content"
-                                      required>{{$category->content}}</textarea>
-                        </div>
-                        <div class="form-group">
-                            <label>Tác giả... <code>Bạn muốn dùng tên tài khoản hay tên khác?</code></label>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-radio">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="author_type" value="no" {{$category->author === Auth::user()->name? 'checked': ''}}> Không
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-radio">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="author_type" value="yes" id="show-input-author" {{$category->author === Auth::user()->name? '': 'checked'}}> Có
-                                        </label>
-                                    </div>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="form-group">
+                                    <label for="name">Giá</label>
+                                    <input type="text" class="form-control" id="price" placeholder="Giá dịch vụ"
+                                           name="price" value="{{$price->price}}" required>
                                 </div>
                             </div>
-                            <input type="text" class="form-control" placeholder="Tác giả" {{$category->author === Auth::user()->name? 'hidden': ''}} id="input-author"
-                                   value="{{$category->author}}" name="author">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label for="per">Loại(VNĐ/Loại)</label>
+                                    <select class="form-control" id="per" name="per" required>
+                                        <option value="1" {{$price->per == 'răng'? 'checked' : ''}}>Răng</option>
+                                        <option value="2" {{$price->per == 'cặp'? 'checked' : ''}}>Cặp</option>
+                                        <option value="3" {{$price->per == 'hàm'? 'checked' : ''}}>Hàm</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="type">Loại dịch vụ</label>
+                            <select class="form-control" id="type" name="type" required>
+                                @foreach($types as $type)
+                                    <option value="{{$type->id}}" {{$type->id == $price->type_id ? 'checked' : ''}}>{{$type->name}}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <hr/>
                         <div class="form-group">
@@ -62,14 +56,14 @@
                                 <div class="col-sm-6">
                                     <div class="form-radio">
                                         <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="status" value="show" {{$category->status == 'show' ? 'checked':''}}> Hiện
+                                            <input type="radio" class="form-check-input" name="status" value="show" {{$price->status == 'show' ? 'checked':''}}> Hiện
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-radio">
                                         <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="status" value="hide" {{$category->status == 'hide' ? 'checked':''}}> Ẩn
+                                            <input type="radio" class="form-check-input" name="status" value="hide" {{$price->status == 'hide' ? 'checked':''}}> Ẩn
                                         </label>
                                     </div>
                                 </div>
@@ -85,10 +79,12 @@
 
 @endsection
 @section('js')
-    @include('components.nicEdit.nicEdit')
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
     <script>
-        $("input[name='author_type']").on('click', function () {
-            $("#show-input-author:checked").val() === 'yes' ? $('#input-author').removeAttr("hidden") : $('#input-author').attr("hidden", 'true')
+        $(document).on('keyup', '#price',function() {
+            var value_ = numeral($(this).val()).format('0,0')
+            $(this).val(value_)
         })
     </script>
 @endsection
+
