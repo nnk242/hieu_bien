@@ -28,6 +28,13 @@ class HomeController extends Controller
         return view('frontend.index', compact('posts', 'categories', 'slides'));
     }
 
+    public function post_($post)
+    {
+        $post = $this->post()::where(['status' => 'show', 'title_seo' => $post])->first();
+        $categories = $this->category()::all();
+        return view('frontend.post', compact('categories', 'post'));
+    }
+
     public function sendMessage(Request $request)
     {
         $validator = Validator::make($request->all(), [

@@ -12,12 +12,12 @@
 */
 
 Route::get('/', 'HomeController@index')->name('frontend.index');
+Route::get('/{post}', 'HomeController@post_')->name('frontend.post');
 Route::post('/', 'HomeController@sendMessage')->name('frontend.sendMessage');
 
 
 Route::group(['prefix' => 'admin'], function () {
     Auth::routes();
-//    Route::get('/home', 'HomeController@index')->name('home');
     //dashboard
     Route::get('/dashboard', 'Admin\DashboardController@index')->name('dashboard');
     //message
