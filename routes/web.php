@@ -30,6 +30,7 @@ Route::group(['prefix' => 'admin'], function () {
     //post
     Route::resource('/post', 'Admin\PostController');
     Route::get('/post/edit/changeStatus', 'Admin\PostController@changeStatus')->name('post.changeStatus');
+    Route::get('/post/edit/changeSlide', 'Admin\PostController@changeSlide')->name('post.changeSlide');
 
     //category
     Route::resource('/category', 'Admin\CategoryController');

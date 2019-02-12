@@ -7,6 +7,7 @@
                 <p class="card-description">
                     <code>.Có tổng {{$posts->total()}} bài viết</code>
                 </p>
+                <a href="#"><button class="btn btn-outline-primary">Slide đang hoạt động</button></a>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -16,6 +17,7 @@
                             <th>Giới thiệu</th>
                             <th>Nội dung</th>
                             <th>Status</th>
+                            <th>Slide</th>
                             <th>Ngày tạo</th>
                             <th>Hành động</th>
                         </tr>
@@ -30,6 +32,10 @@
                                 <td>
                                     <a href="{{route('post.changeStatus', ['id' => $post->id])}}"
                                        class="badge {{$post->status == 'show'? 'badge-warning' : 'badge-secondary'}}">{{$post->status}}</a>
+                                </td>
+                                <td>
+                                    <a href="{{route('post.changeSlide', ['id' => $post->id])}}"
+                                       class="badge {{$post->slide == 'show'? 'badge-warning' : 'badge-secondary'}}">{{$post->slide}}</a>
                                 </td>
                                 <td>
                                     <label class="badge badge-success">{{$post->created_at}}</label>

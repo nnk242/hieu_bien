@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Category;
 use App\Http\Controllers\Component\MessageAdmin;
 use App\Http\Controllers\Controller;
 use App\Post;
@@ -40,8 +41,9 @@ class PostController extends Controller
      */
     public function create()
     {
+        $categories = Category::select('id', 'title')->get();
         $newMessage = $this->newMessage();
-        return view("admin.post.create", compact('newMessage'));
+        return view("admin.post.create", compact('newMessage', 'categories'));
     }
 
     /**
@@ -98,8 +100,9 @@ class PostController extends Controller
 
     public function edit(Post $post)
     {
+        $categories = Category::select('id', 'title')->get();
         $newMessage = $this->newMessage();
-        return view('admin.post.edit', compact('post', 'newMessage'));
+        return view('admin.post.edit', compact('post', 'newMessage', 'categories'));
     }
 
     /**
@@ -162,5 +165,17 @@ class PostController extends Controller
             ]
         );
         return redirect()->back()->with('success', 'Thay đổi status thành công!');
+    }
+
+    public function changeSlide(Request $request)
+    {
+        $item = $this->model()::findOrFail($request->id);
+        $slide = $item->slide;
+        $item->update(
+            [
+                'slide' => $slide == 'show' ? 'hide' : 'show'
+            ]
+        );
+        return redirect()->back()->with('success', 'Thay đổi slide thành công!');
     }
 }

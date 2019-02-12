@@ -35,6 +35,14 @@
                                       required>{{$post->content}}</textarea>
                         </div>
                         <div class="form-group">
+                            <label for="type">Danh mục bài viết</label>
+                            <select class="form-control" id="category" name="category" required>
+                                @foreach($categories as $category)
+                                    <option value="{{$category->id}}" {{$category->id == $post->category_id ? 'checked' : ''}}>{{$category->title}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label>Tác giả... <code>Bạn muốn dùng tên tài khoản hay tên khác?</code></label>
                             <div class="row">
                                 <div class="col-sm-6">
@@ -54,6 +62,26 @@
                             </div>
                             <input type="text" class="form-control" placeholder="Tác giả" {{$post->author === Auth::user()->name? 'hidden': ''}} id="input-author"
                                    value="{{$post->author}}" name="author">
+                        </div>
+                        <hr/>
+                        <div class="form-group">
+                            <label for="exampleInputCity1">Dùng làm slide</label>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-radio">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="slide" value="show" {{$post->slide == 'show' ? 'checked':''}}> Hiện
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-radio">
+                                        <label class="form-check-label">
+                                            <input type="radio" class="form-check-input" name="slide" value="hide" {{$post->slide == 'hide' ? 'checked':''}}> Ẩn
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <hr/>
                         <div class="form-group">
