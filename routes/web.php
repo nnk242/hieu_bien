@@ -13,6 +13,9 @@
 
 Route::get('/', 'HomeController@index')->name('frontend.index');
 Route::get('/{post}', 'HomeController@post_')->name('frontend.post');
+Route::get('/danh-muc/{category}', 'HomeController@category_')->name('frontend.category');
+Route::get('/tim-kiem/{search}', 'HomeController@search')->name('frontend.search');
+Route::get('/api/tim-kiem', 'HomeController@apiSearch')->name('frontend.api.search');
 Route::post('/', 'HomeController@sendMessage')->name('frontend.sendMessage');
 
 

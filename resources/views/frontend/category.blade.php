@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="content col-md-9">
                     <p class="content-title">
-                        <i class="fa fa-newspaper-o" aria-hidden="true"></i> Bài viết cập nhật
+                        <i class="fa fa-newspaper-o" aria-hidden="true"></i> Danh mục {{$category_title}}
                     </p>
                     @foreach($posts as $post)
                         <div>

@@ -18,7 +18,7 @@ $('#story-search').selectize({
     load: function (query, callback) {
         if (!query.length) return callback();
         $.ajax({
-            url: '/search?type=stories&keyword=' + encodeURIComponent(query),
+            url: '/api/tim-kiem?type=string&keyword=' + encodeURIComponent(query),
             type: 'GET',
             error: function () {
                 callback();
@@ -33,12 +33,9 @@ $('#story-search').selectize({
 
 $(document).on('click', '#search-story', function () {
     var val = $('#story-search').val();
-    $(location).attr('href', window.location.origin + '/?timkiem=' + val);
+    $(location).attr('href', window.location.origin + '/tim-kiem/' + val);
 });
 
-$(document).on('click', '.icon-ad', function () {
-    $(this).closest('.ad-story').remove();
-});
 
 $(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();

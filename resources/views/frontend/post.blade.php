@@ -15,7 +15,7 @@
                         </a>
                         @foreach($categories as $category)@if($category->id == $post->category_id)<a
                             class="breadcrumb-item"
-                            href="{{$category->title_seo}}"> {{$category->title}}</a>@endif
+                            href="{{route('frontend.category',['category' => $category->title_seo])}}"> {{$category->title}}</a>@endif
                         @endforeach
                         <span class="breadcrumb-item active"><a
                                 href="{{ url($post->title_seo) }}">{!! $post->title !!}</a></span>

@@ -1,6 +1,6 @@
 @if(isset($posts))
     @if($posts->currentPage() == 1)
-        @if(count($slides) !=0)
+        @if(isset($slides))
             <section class="slide">
                 <div id="slide" class="carousel slide" data-ride="carousel">
                     <ul class="carousel-indicators">
