@@ -2,15 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
 use App\Message;
+use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
+    private function post()
+    {
+        return Post::class;
+    }
+
+    private function category()
+    {
+        return Category::class;
+    }
+
     public function index()
     {
-        return view('frontend.index');
+        $posts = $this->post()::where(['slide' => 'hide', 'status' => 'show'])->paginate(10);
+        $slides = $this->post()::where(['slide' => 'show', 'status' => 'show'])->get();
+        $categories = $this->category()::all();
+        return view('frontend.index', compact('posts', 'categories', 'slides'));
     }
 
     public function sendMessage(Request $request)
@@ -25,7 +40,7 @@ class HomeController extends Controller
             return redirect()->back()->with('error', serialize($validator->errors()->getMessages()));
         }
 
-        if(Message::count() > 555) {
+        if (Message::count() > 555) {
             Message::where('status', '1')->orderby('id', 'DESC')->first()->delete();
         }
 

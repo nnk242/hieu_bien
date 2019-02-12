@@ -117,7 +117,7 @@ p.name {
 
 .wrap {
     max-width: 992px;
-    margin: auto;
+    margin: 24px auto;
     box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.03);
 }
 
@@ -269,7 +269,7 @@ ul.pagination li a {
 .wrap main .sidebar .top-story {
     position: -webkit-sticky;
     position: sticky;
-    top: 58px !important;
+    top: 10px !important;
     overflow: auto;
 }
 

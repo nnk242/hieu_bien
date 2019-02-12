@@ -12,195 +12,40 @@
                     <p class="content-title">
                         <i class="fa fa-newspaper-o" aria-hidden="true"></i> Bai viet cập nhật
                     </p>
-                    <div>
-                        <div class="item">
-                            <h2 class="post" data-id="1"><a href="#" title="Cấy ghép IMPLANT"
-                                                            data-toggle="tooltip">Cấy ghép IMPLANT</a>
-                            </h2>
-                            <div>
+                    @foreach($posts as $post)
+                        <div>
+                            <div class="item">
+                                <h2 class="post" data-id="{{$post->id}}"><a href="#" title="{{$post->title}}"
+                                                                data-toggle="tooltip">{{$post->title}}</a>
+                                </h2>
+                                <div>
                                     <span class="fa fa-eye" aria-hidden="true">
-                                    </span> 9999&nbsp;-&nbsp;<span class="fa fa-clock-o" aria-hidden="true">
-                                    </span>&nbsp;5 gio truoc
-                            </div>
-                            <div class="row description">
-                                <div class="col-md-4 mb-3">
-                                    <div class="custom-item-img"
-                                         style="background-image: url('https://66.media.tumblr.com/46731882a838df1797b48fc8dd3a7a04/tumblr_pkqo6ifwv21rogvb0o1_1280.jpg'); width: 100%"></div>
+                                    </span> {{$post->view}}&nbsp;-&nbsp;<span class="fa fa-clock-o" aria-hidden="true">
+                                    </span>&nbsp;{{time_elapsed_string($post->created_at)}}
                                 </div>
-                                <div class="col-md-8">
-                                    <a href="#" title="Cấy ghép IMPLANT" data-toggle="tooltip">
-                                        <p>
-                                            Nếu như trước đây người mất răng toàn hàm chỉ có thể chọn đeo hàm tháo
-                                            lắp hoặc
-                                            là phải
-                                            cấy ghép 6 – 8 trụ implant để cố định toàn hàm thì hiện nay ngành nha đã
-                                            có giải
-                                            pháp
-                                            mới cho những người mất răng toàn hàm. Đó là công nghệ cấy ghép răng All
-                                        </p>
-                                    </a>
+                                <div class="row description">
+                                    <div class="col-md-4 mb-3">
+                                        <div class="custom-item-img"
+                                             style="background-image: url({{$post->image? $post->image: 'https://66.media.tumblr.com/46731882a838df1797b48fc8dd3a7a04/tumblr_pkqo6ifwv21rogvb0o1_1280.jpg'}}); width: 100%"></div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <a href="#" title="Cấy ghép IMPLANT" data-toggle="tooltip">
+                                            <p>
+                                                {!! str_limit(strip_tags($post->content), $limit = 150, $end = '...') !!}
+                                            </p>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div>
-                        <div class="item">
-                            <h2 class="post" data-id="1"><a href="#" title="Cấy ghép IMPLANT"
-                                                            data-toggle="tooltip">Cấy ghép IMPLANT</a>
-                            </h2>
-                            <div>
-                                    <span class="fa fa-eye" aria-hidden="true">
-                                    </span> 9999&nbsp;-&nbsp;<span class="fa fa-clock-o" aria-hidden="true">
-                                    </span>&nbsp;5 gio truoc
-                            </div>
-                            <div class="row description">
-                                <div class="col-md-4 mb-3">
-                                    <div class="custom-item-img"
-                                         style="background-image: url('https://66.media.tumblr.com/46731882a838df1797b48fc8dd3a7a04/tumblr_pkqo6ifwv21rogvb0o1_1280.jpg'); width: 100%"></div>
-                                </div>
-                                <div class="col-md-8">
-                                    <a href="#" title="Cấy ghép IMPLANT" data-toggle="tooltip">
-                                        <p>
-                                            Nếu như trước đây người mất răng toàn hàm chỉ có thể chọn đeo hàm tháo
-                                            lắp hoặc
-                                            là phải
-                                            cấy ghép 6 – 8 trụ implant để cố định toàn hàm thì hiện nay ngành nha đã
-                                            có giải
-                                            pháp
-                                            mới cho những người mất răng toàn hàm. Đó là công nghệ cấy ghép răng All
-                                        </p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="item">
-                            <h2 class="post" data-id="1"><a href="#" title="Cấy ghép IMPLANT"
-                                                            data-toggle="tooltip">Cấy ghép IMPLANT</a>
-                            </h2>
-                            <div>
-                                    <span class="fa fa-eye" aria-hidden="true">
-                                    </span> 9999&nbsp;-&nbsp;<span class="fa fa-clock-o" aria-hidden="true">
-                                    </span>&nbsp;5 gio truoc
-                            </div>
-                            <div class="row description">
-                                <div class="col-md-4 mb-3">
-                                    <div class="custom-item-img"
-                                         style="background-image: url('https://66.media.tumblr.com/46731882a838df1797b48fc8dd3a7a04/tumblr_pkqo6ifwv21rogvb0o1_1280.jpg'); width: 100%"></div>
-                                </div>
-                                <div class="col-md-8">
-                                    <a href="#" title="Cấy ghép IMPLANT" data-toggle="tooltip">
-                                        <p>
-                                            Nếu như trước đây người mất răng toàn hàm chỉ có thể chọn đeo hàm tháo
-                                            lắp hoặc
-                                            là phải
-                                            cấy ghép 6 – 8 trụ implant để cố định toàn hàm thì hiện nay ngành nha đã
-                                            có giải
-                                            pháp
-                                            mới cho những người mất răng toàn hàm. Đó là công nghệ cấy ghép răng All
-                                        </p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="item">
-                            <h2 class="post" data-id="1"><a href="#" title="Cấy ghép IMPLANT"
-                                                            data-toggle="tooltip">Cấy ghép IMPLANT</a>
-                            </h2>
-                            <div>
-                                    <span class="fa fa-eye" aria-hidden="true">
-                                    </span> 9999&nbsp;-&nbsp;<span class="fa fa-clock-o" aria-hidden="true">
-                                    </span>&nbsp;5 gio truoc
-                            </div>
-                            <div class="row description">
-                                <div class="col-md-4 mb-3">
-                                    <div class="custom-item-img"
-                                         style="background-image: url('https://66.media.tumblr.com/46731882a838df1797b48fc8dd3a7a04/tumblr_pkqo6ifwv21rogvb0o1_1280.jpg'); width: 100%"></div>
-                                </div>
-                                <div class="col-md-8">
-                                    <a href="#" title="Cấy ghép IMPLANT" data-toggle="tooltip">
-                                        <p>
-                                            Nếu như trước đây người mất răng toàn hàm chỉ có thể chọn đeo hàm tháo
-                                            lắp hoặc
-                                            là phải
-                                            cấy ghép 6 – 8 trụ implant để cố định toàn hàm thì hiện nay ngành nha đã
-                                            có giải
-                                            pháp
-                                            mới cho những người mất răng toàn hàm. Đó là công nghệ cấy ghép răng All
-                                        </p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="item">
-                            <h2 class="post" data-id="1"><a href="#" title="Cấy ghép IMPLANT"
-                                                            data-toggle="tooltip">Cấy ghép IMPLANT</a>
-                            </h2>
-                            <div>
-                                    <span class="fa fa-eye" aria-hidden="true">
-                                    </span> 9999&nbsp;-&nbsp;<span class="fa fa-clock-o" aria-hidden="true">
-                                    </span>&nbsp;5 gio truoc
-                            </div>
-                            <div class="row description">
-                                <div class="col-md-4 mb-3">
-                                    <div class="custom-item-img"
-                                         style="background-image: url('https://66.media.tumblr.com/46731882a838df1797b48fc8dd3a7a04/tumblr_pkqo6ifwv21rogvb0o1_1280.jpg'); width: 100%"></div>
-                                </div>
-                                <div class="col-md-8">
-                                    <a href="#" title="Cấy ghép IMPLANT" data-toggle="tooltip">
-                                        <p>
-                                            Nếu như trước đây người mất răng toàn hàm chỉ có thể chọn đeo hàm tháo
-                                            lắp hoặc
-                                            là phải
-                                            cấy ghép 6 – 8 trụ implant để cố định toàn hàm thì hiện nay ngành nha đã
-                                            có giải
-                                            pháp
-                                            mới cho những người mất răng toàn hàm. Đó là công nghệ cấy ghép răng All
-                                        </p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
+                    @endforeach
+                    {!! $posts->appends(request()->except('page'))->links() !!}
                 </div>
                 <!-- // End content -->
 
                 <!-- Start sidebar -->
                 <div class="sidebar col-md-3">
-                    <div class="list-categories">
-                        <p class="sidebar-title">
-                            <i class="fa fa-th-list" aria-hidden="true"></i>Danh mục
-                        </p>
-                        <div class="categories">
-                            <div class="item-sidebar">
-                                <span class="fa fa-arrow-circle-o-right" aria-hidden="true"></span>
-                                <a href="#" title="Cấy ghép IMPLANT" data-toggle="tooltip">nha khoa</a>
-                            </div>
-                            <div class="item-sidebar">
-                                <span class="fa fa-arrow-circle-o-right" aria-hidden="true"></span>
-                                <a href="#" title="Cấy ghép IMPLANT" data-toggle="tooltip">nha khoa</a>
-                            </div>
-                            <div class="item-sidebar">
-                                <span class="fa fa-arrow-circle-o-right" aria-hidden="true"></span>
-                                <a href="#" title="Cấy ghép IMPLANT" data-toggle="tooltip">nha khoa</a>
-                            </div>
-                            <div class="item-sidebar">
-                                <span class="fa fa-arrow-circle-o-right" aria-hidden="true"></span>
-                                <a href="#" title="Cấy ghép IMPLANT" data-toggle="tooltip">nha khoa</a>
-                            </div>
-                        </div>
-                    </div>
-
+                    @include('layouts.frontend.components.category')
                     <div class="stories">
                         <div class="form-group">
                             <p class="sidebar-title">

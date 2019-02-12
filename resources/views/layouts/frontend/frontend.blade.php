@@ -28,47 +28,8 @@
 <body>
 <div id="app">
     @include('layouts.frontend.components.header')
-    <section class="slide">
-        <div id="demo" class="carousel slide" data-ride="carousel">
-            <ul class="carousel-indicators">
-                <li data-target="#demo" data-slide-to="0" class="active"></li>
-                <li data-target="#demo" data-slide-to="1"></li>
-                <li data-target="#demo" data-slide-to="2"></li>
-            </ul>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="custom-carousel"
-                         style="background-image: url('https://66.media.tumblr.com/948e0c698f664e6df4856a23e25d039d/tumblr_pkdnm1hOgl1rogvb0o1_1280.jpg');"></div>
-                    <div class="carousel-caption">
-                        <h3>Halo</h3>
-                        <p>We had such a great time in LA!</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="custom-carousel"
-                         style="background-image: url('https://66.media.tumblr.com/199539802afecc30b15b3121c7c0f7dc/tumblr_pjh7l05o221rogvb0o1_1280.jpg')"></div>
-                    <div class="carousel-caption">
-                        <h3>HHHHH</h3>
-                        <p>Thank you, Chicago!</p>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <img class="custom-carousel"
-                         style="background-image: url('https://66.media.tumblr.com/9a6917793aea942bebfe2e5cdbc97dca/tumblr_pj39bt1WJH1rogvb0o1_1280.jpg')">
-                    <div class="carousel-caption">
-                        <h3>Hieu</h3>
-                        <p>We love the Big Apple!</p>
-                    </div>
-                </div>
-            </div>
-            <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-            </a>
-            <a class="carousel-control-next" href="#demo" data-slide="next">
-                <span class="carousel-control-next-icon"></span>
-            </a>
-        </div>
-    </section>
+    @include('layouts.frontend.components.slide')
+
     <div class="wrap">
         {{--@include('layouts.frontend.components.shareMXH')--}}
         @yield('content')
