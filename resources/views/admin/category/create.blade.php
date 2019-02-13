@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Thêm danh mục</h4>
-                    <form class="forms-sample" action="{{ route('post.store') }}" method="POST" enctype="multipart/form-data">
+                    <form class="forms-sample" action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="title">Tiêu đề</label>
