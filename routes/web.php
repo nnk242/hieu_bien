@@ -18,7 +18,7 @@ Route::get('/tim-kiem/{search}', 'HomeController@search')->name('frontend.search
 Route::get('/api/tim-kiem', 'HomeController@apiSearch')->name('frontend.api.search');
 Route::post('/', 'HomeController@sendMessage')->name('frontend.sendMessage');
 
-Route::get('/tag/{tag}', 'HomeController@search')->name('frontend.tag');
+Route::get('/tag/{tag}', 'HomeController@tag')->name('frontend.tag');
 
 
 Route::group(['prefix' => 'admin'], function () {

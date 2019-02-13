@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="content col-md-9">
                     <p class="content-title">
-                        <i class="fa fa-newspaper-o" aria-hidden="true"></i> Tìm kiếm: {{ '@'. $search }}
+                        <i class="fa fa-newspaper-o" aria-hidden="true"></i> TAG: {{ '#'. $tag_ }}
                     </p>
                     @include('layouts.frontend.components.content')
                 </div>

@@ -22,10 +22,18 @@
                     </nav>
                     <div class="description-story item">
                         <h1 class="name">{!! $post->title !!}</h1>
-                        <span><i class="fa fa-eye" aria-hidden="true"></i> {!! post_views($post->view) !!}&nbsp;-&nbsp;<i
+                        <span><i class="fa fa-eye"
+                                 aria-hidden="true"></i> {!! post_views($post->view) !!}&nbsp;-&nbsp;<i
                                 class="fa fa-clock-o"
                                 aria-hidden="true"> {{ time_elapsed_string($post->created_at) }}</i><br/>
                         </span>
+                        <div class="tag-item" style="float: none">
+                            @foreach(explode(',', $post->tag) as $key=>$value)
+                                <span class="fa fa-hashtag"></span><a
+                                    href="{{route('frontend.tag', ['tag' => isset(explode(',', $post->tag_seo)[$key])?explode(',', $post->tag_seo)[$key]: 'nhakhoa'])}}"
+                                    title="{{$value}}" data-toggle="tooltip">{{$value}}</a>
+                            @endforeach
+                        </div>
                     </div>
                     <div class="item">
                         <p class="content-story">
@@ -40,20 +48,9 @@
             <!-- // End content -->
             <!-- Start sidebar -->
             <div class="sidebar col-md-3">
-                <div class="list-categories">
-                    <p class="sidebar-title">
-                        <i class="fa fa-th-list" aria-hidden="true"></i>Danh mục
-                    </p>
-                    <div class="categories">
-                        @foreach($categories as $category)
-                            <div class="item-sidebar">
-                                <i class="fa fa-arrow-circle-o-right" aria-hidden="true"></i><a
-                                    href="{{ url($category->title_seo) }}" title="{{$category->title}}"
-                                    data-toggle="tooltip">{{$category->title}}</a>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
+                @include('layouts.frontend.components.category')
+
+                @include('layouts.frontend.components.top')
 
                 @include('layouts.frontend.components.tag')
 

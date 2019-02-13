@@ -53,7 +53,9 @@ class HomeController extends Controller
             'seo' => explode(",", $this->tagHome()->tag_seo)];
         $top = $this->top();
         $post = $this->post()::where(['status' => 'show', 'title_seo' => $post])->first();
-        Event::fire(URL::current(), $post);
+        if(isset($post)) {
+            Event::fire(URL::current(), $post);
+        }
         $categories = $this->category()::all();
         return view('frontend.post', compact('categories', 'post', 'top', 'tags'));
     }
@@ -132,5 +134,18 @@ class HomeController extends Controller
             'ip' => $request->ip()
         ]);
         return redirect()->back()->with('success', 'Gửi tin nhắn thành công!');
+    }
+
+    public function tag($tag_)
+    {
+        $tags = ['name' => explode(",", $this->tagHome()->tag),
+            'seo' => explode(",", $this->tagHome()->tag_seo)];
+
+        $top = $this->top();
+        $posts = Post::where(['status' => 'show'])->where('title', 'like', '%' . $tag_ . '%')
+            ->orderBy('created_at', 'DESC')
+            ->paginate(10);
+        $categories = $this->category()::all();
+        return view('frontend.tag', compact('posts', 'categories', 'search', 'top', 'tags', 'tag_'));
     }
 }
