@@ -22,19 +22,7 @@
 
                     @include('layouts.frontend.components.top')
 
-                    <div class="top-story mb-5">
-                        <div class="form-group">
-                            <p class="sidebar-title">
-                                <span class="fa fa-tags" aria-hidden="true"></span>TAGS
-                            </p>
-                            <div class="tag-item">
-                                <span class="fa fa-hashtag"></span><a href="#"
-                                                                      title="Hay qua" data-toggle="tooltip">tag hay
-                                    qua</a>
-                            </div>
-                        </div>
-
-                    </div>
+                    @include('layouts.frontend.components.tag')
                     <!-- End sidebar -->
 
                 </div>

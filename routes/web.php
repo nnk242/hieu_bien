@@ -18,11 +18,14 @@ Route::get('/tim-kiem/{search}', 'HomeController@search')->name('frontend.search
 Route::get('/api/tim-kiem', 'HomeController@apiSearch')->name('frontend.api.search');
 Route::post('/', 'HomeController@sendMessage')->name('frontend.sendMessage');
 
+Route::get('/tag/{tag}', 'HomeController@search')->name('frontend.tag');
+
 
 Route::group(['prefix' => 'admin'], function () {
     Auth::routes();
     //dashboard
     Route::get('/dashboard', 'Admin\DashboardController@index')->name('dashboard');
+    Route::post('/dashboard/tag/edit', 'Admin\DashboardController@tag')->name('dashboard.tag.edit');
     //message
     Route::resource('/messages', 'Admin\MessageController');
     Route::get('/messages/new', 'Admin\MessageController@new')->name('messages.new');
@@ -30,6 +33,7 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/messages/edit/status', 'Admin\MessageController@status')->name('messages.status');
     Route::post('/messages/reply/{id}', 'Admin\MessageController@reply')->name('messages.reply');
     Route::delete('/messages/destroy/{id}/item', 'Admin\MessageController@destroyItem')->name('messages.destroy.item');
+
     //post
     Route::resource('/post', 'Admin\PostController');
     Route::get('/post/edit/changeStatus', 'Admin\PostController@changeStatus')->name('post.changeStatus');

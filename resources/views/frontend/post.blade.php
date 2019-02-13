@@ -55,6 +55,8 @@
                     </div>
                 </div>
 
+                @include('layouts.frontend.components.tag')
+
             </div>
         </div>
     </main>

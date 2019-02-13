@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Component\MessageAdmin;
 use App\Message;
 use App\Post;
+use App\Tag;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -29,11 +30,13 @@ class DashboardController extends Controller
     {
         $newMessage = $this->newMessage();
         $todayMessage = Message::whereDate('created_at', Carbon::today())->count();
-        $yesterdayMessage = Message::whereDate('created_at', '<',Carbon::today())->whereDate('created_at', '>=',Carbon::today()->subDays(1))->count();
+        $yesterdayMessage = Message::whereDate('created_at', '<', Carbon::today())->whereDate('created_at', '>=', Carbon::today()->subDays(1))->count();
 
         $todayPost = Post::whereDate('created_at', Carbon::today())->count();
-        $weekPost = Post::whereDate('created_at', '<=',Carbon::today())->whereDate('created_at', '>=',Carbon::today()->subDays(7))->count();
-        return view('admin.dashboard', compact('newMessage', 'todayMessage', 'yesterdayMessage', 'todayPost', 'weekPost'));
+        $weekPost = Post::whereDate('created_at', '<=', Carbon::today())->whereDate('created_at', '>=', Carbon::today()->subDays(7))->count();
+
+        $tags = Tag::first();
+        return view('admin.dashboard', compact('newMessage', 'todayMessage', 'yesterdayMessage', 'todayPost', 'weekPost', 'tags'));
     }
 
     public function changePassword(Request $request)
@@ -64,5 +67,21 @@ class DashboardController extends Controller
         } else {
             return redirect()->back();
         }
+    }
+
+    public function tag(Request $request)
+    {
+        $tags_array = explode(',', $request->tags);
+        $tags = array();
+        foreach ($tags_array as $value) {
+            $tags[] = str_seo($value);
+        }
+        $tag_seo = implode(',', $tags);
+
+        Tag::find(1)->update([
+            'tag' => $request->tags,
+            'tag_seo' => $tag_seo
+        ]);
+        return redirect()->back()->with('success', 'Thay đổi tag thành công!');
     }
 }
