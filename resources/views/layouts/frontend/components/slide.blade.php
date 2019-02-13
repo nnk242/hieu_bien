@@ -5,7 +5,7 @@
                 <div id="slide" class="carousel slide" data-ride="carousel">
                     <ul class="carousel-indicators">
                         @foreach($slides as $key=>$slide)
-                            <li data-target="#slide" data-slide-to="{{$key}}" class="{{$key==0? 'active' : ''}}"></li>
+                            <li data-target="#slide" data-slide-to="{{$key}}" class="custom-radius {{$key==0? 'active' : ''}}"></li>
                         @endforeach
                     </ul>
                     <div class="carousel-inner">
@@ -15,7 +15,7 @@
                                      style="background-image: url({{$slide->image? $slide->image: 'https://66.media.tumblr.com/948e0c698f664e6df4856a23e25d039d/tumblr_pkdnm1hOgl1rogvb0o1_1280.jpg'}});"></div>
                                 <div class="carousel-caption">
                                     <h3>{{$slide->title}}</h3>
-                                    <p> {!! str_limit(strip_tags($slide->content), $limit = 50, $end = '...') !!}</p>
+                                    <p> {{$slide->introduce}}</p>
                                 </div>
                             </div>
                         @endforeach

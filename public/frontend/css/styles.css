@@ -512,3 +512,9 @@ section .slide {
     background-color: #212529;
     border-radius: 3px;
 }
+
+.custom-radius {
+    width: 15px !important;
+    height: 15px !important;
+    border-radius: 50%;
+}

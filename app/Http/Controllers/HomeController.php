@@ -6,6 +6,8 @@ use App\Category;
 use App\Message;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
@@ -20,19 +22,26 @@ class HomeController extends Controller
         return Category::class;
     }
 
+    private function top() {
+        return $this->post()::orderby('view', 'DESC')->take(7)->get();
+    }
+
     public function index()
     {
-        $posts = $this->post()::where(['slide' => 'hide', 'status' => 'show'])->paginate(10);
+        $top = $this->top();
+        $posts = $this->post()::where(['slide' => 'hide', 'status' => 'show'])->orderby('id', 'DESC')->paginate(10);
         $slides = $this->post()::where(['slide' => 'show', 'status' => 'show'])->get();
         $categories = $this->category()::all();
-        return view('frontend.index', compact('posts', 'categories', 'slides'));
+        return view('frontend.index', compact('posts', 'categories', 'slides', 'top'));
     }
 
     public function post_($post)
     {
+        $top = $this->top();
         $post = $this->post()::where(['status' => 'show', 'title_seo' => $post])->first();
+        Event::fire(URL::current(), $post);
         $categories = $this->category()::all();
-        return view('frontend.post', compact('categories', 'post'));
+        return view('frontend.post', compact('categories', 'post', 'top'));
     }
 
     public function category_($category)
