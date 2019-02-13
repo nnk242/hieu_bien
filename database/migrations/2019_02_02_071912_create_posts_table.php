@@ -54,6 +54,8 @@ class CreatePostsTable extends Migration
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->enum('status', ['hide', 'show'])->default('show');
             $table->enum('slide', ['hide', 'show'])->default('hide');
+            $table->string('tag')->nullable();
+            $table->string('tag_seo')->nullable();
             $table->integer('view')->default(0);
             $table->timestamps();
         });

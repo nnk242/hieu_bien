@@ -1,4 +1,12 @@
 @extends('layouts.admin')
+@section('css')
+    <!-- selectize -->
+    <link href="/frontend/libs/selectize/css/bootstrap2.css" rel="stylesheet"/>
+    <link href="/frontend/libs/selectize/css/bootstrap3.css" rel="stylesheet"/>
+    <link href="/frontend/libs/selectize/css/selectize.css" rel="stylesheet"/>
+    <link href="/frontend/libs/selectize/css/default.css" rel="stylesheet"/>
+    <link href="/frontend/libs/selectize/css/legacy.css" rel="stylesheet"/>
+@endsection
 @section('content')
     <div class="justify-content-center row">
         <div class="col-md-6 grid-margin stretch-card">
@@ -85,6 +93,11 @@
                         </div>
                         <hr/>
                         <div class="form-group">
+                            <label for="title"><i class="fa fa-tag"></i> Tags</label>
+                            <input id="input-tags" class="form-control" name="tags" value="{{$post->tag}}">
+                        </div>
+                        <hr/>
+                        <div class="form-group">
                             <label for="exampleInputCity1">Ẩn hiện bài viết</label>
                             <div class="row">
                                 <div class="col-sm-6">
@@ -114,7 +127,20 @@
 @endsection
 @section('js')
     @include('components.nicEdit.nicEdit')
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/js/standalone/selectize.min.js"></script>
     <script>
+        $('#input-tags').selectize({
+            plugins: ['drag_drop', 'remove_button'],
+            delimiter: ',',
+            persist: false,
+            create: function (input) {
+                return {
+                    value: input,
+                    text: input
+                }
+            }
+        })
         $("input[name='author_type']").on('click', function () {
             $("#show-input-author:checked").val() === 'yes' ? $('#input-author').removeAttr("hidden") : $('#input-author').attr("hidden", 'true')
         })

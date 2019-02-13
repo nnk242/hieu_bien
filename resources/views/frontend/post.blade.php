@@ -29,7 +29,7 @@
                     </div>
                     <div class="item">
                         <p class="content-story">
-                            {{$post->content}}
+                            {!! $post->content !!}
                         </p>
                     </div>
                 @else

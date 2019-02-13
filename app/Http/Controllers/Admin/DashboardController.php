@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Mockery\Exception;
 
 class DashboardController extends Controller
 {
@@ -71,17 +72,21 @@ class DashboardController extends Controller
 
     public function tag(Request $request)
     {
-        $tags_array = explode(',', $request->tags);
-        $tags = array();
-        foreach ($tags_array as $value) {
-            $tags[] = str_seo($value);
-        }
-        $tag_seo = implode(',', $tags);
+        try {
+            $tags_array = explode(',', $request->tags);
+            $tags = array();
+            foreach ($tags_array as $value) {
+                $tags[] = str_seo($value);
+            }
+            $tag_seo = implode(',', $tags);
 
-        Tag::find(1)->update([
-            'tag' => $request->tags,
-            'tag_seo' => $tag_seo
-        ]);
-        return redirect()->back()->with('success', 'Thay đổi tag thành công!');
+            Tag::first()->update([
+                'tag' => $request->tags,
+                'tag_seo' => $tag_seo
+            ]);
+            return redirect()->back()->with('success', 'Thay đổi tag thành công!');
+        } catch (Exception $exception) {
+            return redirect()->back()->with('error', 'Đã có lỗi xảy ra!!');
+        }
     }
 }

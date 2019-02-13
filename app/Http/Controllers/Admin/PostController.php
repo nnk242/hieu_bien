@@ -18,7 +18,8 @@ class PostController extends Controller
         $this->middleware('auth');
     }
 
-    protected function newMessage() {
+    protected function newMessage()
+    {
         return MessageAdmin::newMessage();
     }
 
@@ -29,7 +30,7 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = $this->model()::paginate(10);
+        $posts = $this->model()::orderby('id', 'desc')->paginate(10);
         $newMessage = $this->newMessage();
         return view('admin.post.index', compact('posts', 'newMessage'));
     }
@@ -66,6 +67,15 @@ class PostController extends Controller
             return redirect()->back()->with('error', serialize($validator->errors()->getMessages()));
         }
 
+        $tag = $request->tags;
+
+        $tags_array = explode(',', $tag);
+        $tags = array();
+        foreach ($tags_array as $value) {
+            $tags[] = str_seo($value);
+        }
+        $tag_seo = implode(',', $tags);
+
         $data = [
             'title' => $request->title,
             'title_seo' => $this->model()::where('title_seo', str_seo($request->title))->count() == 0 ?
@@ -75,11 +85,14 @@ class PostController extends Controller
             'content' => $request->input('content'),
             'status' => $request->input('status'),
             'author' => $request->author_type == 'yes' ? $request->author : Auth::user()->name,
-            'user_id' => Auth::id()
+            'tag' => $tag,
+            'tag_seo' => $tag_seo,
+            'user_id' => Auth::id(),
+            'category_id' => $request->category
         ];
 
         if (isset($items['image'])) {
-            $image = ['image' => ImgurService::uploadImage($items['image']->getRealPath())];
+            $image = ['image' => str_replace('https://', '', ImgurService::uploadImage($items['image']->getRealPath()))];
             $data = array_merge_recursive($image, $data);
         }
         $this->model()::create($data);
@@ -125,6 +138,15 @@ class PostController extends Controller
             return redirect()->back()->with('error', 'Sửa thất bại!');
         }
 
+        $tag = $request->tags;
+
+        $tags_array = explode(',', $tag);
+        $tags = array();
+        foreach ($tags_array as $value) {
+            $tags[] = str_seo($value);
+        }
+        $tag_seo = implode(',', $tags);
+
         $data = [
             'title' => $request->title,
             'title_seo' => $this->model()::findOrFail($post->id)->where('title_seo', str_seo($request->title))->count() == 1 ||
@@ -135,11 +157,14 @@ class PostController extends Controller
             'content' => $request->input('content'),
             'status' => $request->input('status'),
             'author' => $request->author_type == 'yes' ? $request->author : Auth::user()->name,
-            'user_id' => Auth::id()
+            'tag' => $tag,
+            'tag_seo' => $tag_seo,
+            'user_id' => Auth::id(),
+            'category_id' => $request->category
         ];
 
         if (isset($items['image'])) {
-            $image = ['image' => ImgurService::uploadImage($items['image']->getRealPath())];
+            $image = ['image' => str_replace('https://', '', ImgurService::uploadImage($items['image']->getRealPath()))];
             $data = array_merge_recursive($image, $data);
         }
         $post->update($data);

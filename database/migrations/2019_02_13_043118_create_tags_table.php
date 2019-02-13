@@ -19,8 +19,6 @@ class CreateTagsTable extends Migration
             $table->string('tag_seo');
             $table->enum('type', ['post','home'])->default('post');
             $table->enum('status', ['hide','show'])->default('show');
-            $table->integer('post_id')->unsigned()->nullable();
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
             $table->timestamps();
         });
         //init category

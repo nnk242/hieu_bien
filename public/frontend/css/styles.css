@@ -518,3 +518,8 @@ section .slide {
     height: 15px !important;
     border-radius: 50%;
 }
+
+.content-story img {
+    width: 100%;
+    padding: 10px;
+}

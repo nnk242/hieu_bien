@@ -1,15 +1,25 @@
 @extends('layouts.admin')
+@section('css')
+    <!-- selectize -->
+    <link href="/frontend/libs/selectize/css/bootstrap2.css" rel="stylesheet"/>
+    <link href="/frontend/libs/selectize/css/bootstrap3.css" rel="stylesheet"/>
+    <link href="/frontend/libs/selectize/css/selectize.css" rel="stylesheet"/>
+    <link href="/frontend/libs/selectize/css/default.css" rel="stylesheet"/>
+    <link href="/frontend/libs/selectize/css/legacy.css" rel="stylesheet"/>
+@endsection
 @section('content')
     <div class="justify-content-center row">
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title">Thêm bài viết</h4>
-                    <form class="forms-sample" action="{{ route('post.store') }}" method="POST" enctype="multipart/form-data">
+                    <form class="forms-sample" action="{{ route('post.store') }}" method="POST"
+                          enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="title">Tiêu đề</label>
-                            <input type="text" class="form-control" id="title" placeholder="Tiêu đề" name="title" required>
+                            <input type="text" class="form-control" id="title" placeholder="Tiêu đề" name="title"
+                                   required>
                         </div>
                         <div class="form-group">
                             <input name="link_image" hidden>
@@ -43,14 +53,16 @@
                                 <div class="col-sm-6">
                                     <div class="form-radio">
                                         <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="author_type" value="no" checked> Không
+                                            <input type="radio" class="form-check-input" name="author_type" value="no"
+                                                   checked> Không
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-radio">
                                         <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="author_type" value="yes" id="show-input-author"> Có
+                                            <input type="radio" class="form-check-input" name="author_type" value="yes"
+                                                   id="show-input-author"> Có
                                         </label>
                                     </div>
                                 </div>
@@ -72,11 +84,17 @@
                                 <div class="col-sm-6">
                                     <div class="form-radio">
                                         <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="slide" value="hide" checked> Ẩn
+                                            <input type="radio" class="form-check-input" name="slide" value="hide"
+                                                   checked> Ẩn
                                         </label>
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        <hr/>
+                        <div class="form-group">
+                            <label for="title"><i class="fa fa-tag"></i> Tags</label>
+                            <input id="input-tags" class="form-control" name="tags">
                         </div>
                         <hr/>
                         <div class="form-group">
@@ -85,7 +103,8 @@
                                 <div class="col-sm-6">
                                     <div class="form-radio">
                                         <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="status" value="show" checked> Hiện
+                                            <input type="radio" class="form-check-input" name="status" value="show"
+                                                   checked> Hiện
                                         </label>
                                     </div>
                                 </div>
@@ -109,7 +128,21 @@
 @endsection
 @section('js')
     @include('components.nicEdit.nicEdit')
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/js/standalone/selectize.min.js"></script>
     <script>
+        $('#input-tags').selectize({
+            plugins: ['drag_drop', 'remove_button'],
+            delimiter: ',',
+            persist: false,
+            create: function (input) {
+                return {
+                    value: input,
+                    text: input
+                }
+            }
+        })
+
         $("input[name='author_type']").on('click', function () {
             $("#show-input-author:checked").val() === 'yes' ? $('#input-author').removeAttr("hidden") : $('#input-author').attr("hidden", 'true')
         })
