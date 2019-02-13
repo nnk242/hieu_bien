@@ -16,8 +16,8 @@
                                     <div class="custom-carousel"
                                          style="background-image: url({{$slide->image? $slide->image: 'https://66.media.tumblr.com/948e0c698f664e6df4856a23e25d039d/tumblr_pkdnm1hOgl1rogvb0o1_1280.jpg'}});"></div>
                                     <div class="carousel-caption">
-                                        <h3>{{$slide->title}}</h3>
-                                        <p> {{$slide->introduce}}</p>
+                                        <a href="{{route('frontend.post', ['post' => $slide->title_seo])}}"><h3>{{$slide->title}}</h3></a>
+                                        <a href="{{route('frontend.post', ['post' => $slide->title_seo])}}">{{$slide->introduce}}</a>
                                     </div>
                                 </div>
                             @endforeach
