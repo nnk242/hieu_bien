@@ -205,4 +205,11 @@ class PostController extends Controller
         );
         return redirect()->back()->with('success', 'Thay đổi slide thành công!');
     }
+
+    public function activeSlide()
+    {
+        $posts = $this->model()::where('slide', 'show')->orderby('id', 'desc')->paginate(10);
+        $newMessage = $this->newMessage();
+        return view('admin.post.slide', compact('posts', 'newMessage'));
+    }
 }

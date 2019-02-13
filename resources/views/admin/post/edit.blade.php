@@ -12,6 +12,10 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
+                    <div class="mb-3">
+                        <a href="{{route('post.index')}}"><button class="btn btn-outline-warning"><i class="fa fa-angle-left"></i>Bài viết</button></a>
+                        <a href="{{route('post.create')}}"><button class="btn btn-outline-success"><i class="fa fa-plus"></i>Bài viết</button></a>
+                    </div>
                     <h4 class="card-title">Sửa bài viết</h4>
                     <p class="card-description">
                         {{$post->title}}

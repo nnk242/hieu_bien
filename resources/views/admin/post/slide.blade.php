@@ -7,7 +7,7 @@
                 <p class="card-description">
                     <code>.Có tổng {{$posts->total()}} bài viết</code>
                 </p>
-                <a href="{{route('post.activeSlide')}}"><button class="btn btn-outline-primary">Slide đang hoạt động</button></a>
+                <a href="{{route('post.index')}}"><button class="btn btn-outline-warning"><i class="fa fa-angle-left"></i>Bài viết</button></a>
                 <a href="{{route('post.create')}}"><button class="btn btn-outline-success"><i class="fa fa-plus"></i>Thêm bài viết</button></a>
                 <div class="table-responsive">
                     <table class="table table-hover">

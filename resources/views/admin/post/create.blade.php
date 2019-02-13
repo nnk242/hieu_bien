@@ -12,6 +12,9 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
+                    <div class="mb-3">
+                        <a href="{{route('post.index')}}"><button class="btn btn-outline-warning"><i class="fa fa-angle-left"></i>Bài viết</button></a>
+                    </div>
                     <h4 class="card-title">Thêm bài viết</h4>
                     <form class="forms-sample" action="{{ route('post.store') }}" method="POST"
                           enctype="multipart/form-data">

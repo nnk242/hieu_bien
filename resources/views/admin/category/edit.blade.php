@@ -4,6 +4,10 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
+                    <div class="mb-3">
+                        <a href="{{route('category.index')}}"><button class="btn btn-outline-warning"><i class="fa fa-angle-left"></i>Danh mục</button></a>
+                        <a href="{{route('category.create')}}"><button class="btn btn-outline-success"><i class="fa fa-plus"></i>Thêm danh mục</button></a>
+                    </div>
                     <h4 class="card-title">Sửa bài viết</h4>
                     <p class="card-description">
                         {{$category->title}}
