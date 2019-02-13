@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Component\MessageAdmin;
+use App\Message;
+use App\Post;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +28,12 @@ class DashboardController extends Controller
     public function index()
     {
         $newMessage = $this->newMessage();
-        return view('admin.dashboard', compact('newMessage'));
+        $todayMessage = Message::whereDate('created_at', Carbon::today())->count();
+        $yesterdayMessage = Message::whereDate('created_at', '<',Carbon::today())->whereDate('created_at', '>=',Carbon::today()->subDays(1))->count();
+
+        $todayPost = Post::whereDate('created_at', Carbon::today())->count();
+        $weekPost = Post::whereDate('created_at', '<=',Carbon::today())->whereDate('created_at', '>=',Carbon::today()->subDays(7))->count();
+        return view('admin.dashboard', compact('newMessage', 'todayMessage', 'yesterdayMessage', 'todayPost', 'weekPost'));
     }
 
     public function changePassword(Request $request)

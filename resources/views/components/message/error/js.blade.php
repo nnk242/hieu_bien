@@ -4,7 +4,7 @@
         iziToast.error({
             timeout: 5000,
             icon: 'fa fa-trash',
-            title: 'OK',
+            title: 'Error',
             message: '{!! \Session::get('error') !!}'
         })
     </script>

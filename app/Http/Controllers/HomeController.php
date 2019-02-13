@@ -88,6 +88,21 @@ class HomeController extends Controller
         if (Message::count() > 555) {
             Message::where('status', '1')->orderby('id', 'DESC')->first()->delete();
         }
+        $timeCreatedAt = Message::where('ip', $request->ip())->orderby('id', 'DESC')->first()->created_at->timestamp;
+
+        if(isset($timeCreatedAt)) {
+            if($timeCreatedAt < time() - 60*5) {
+                Message::create([
+                    'name' => $request->input('name'),
+                    'email' => $request->input('email'),
+                    'content' => $request->input('content'),
+                    'ip' => $request->ip()
+                ]);
+                return redirect()->back()->with('success', 'Gửi tin nhắn thành công!');
+            } else {
+                return redirect()->back()->with('error', 'Gửi tin nhắn qúa nhanh xin vui lòng đọi gửi lại trong 5 phút!');
+            }
+        }
 
         Message::create([
             'name' => $request->input('name'),
