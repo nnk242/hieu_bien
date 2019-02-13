@@ -3,7 +3,7 @@
     <script>
         iziToast.error({
             timeout: 5000,
-            icon: 'fa fa-trash',
+            icon: 'fa fa-exclamation-circle',
             title: 'Error',
             message: '{!! \Session::get('error') !!}'
         })
