@@ -6,6 +6,7 @@
 
 @section('content')
     <main>
+
         <div class="row" id="story">
             <div class="content col-md-9">
                 @if(isset($post)!=0)

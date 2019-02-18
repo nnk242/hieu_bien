@@ -2,7 +2,11 @@
     <div class="pt-3 container" style="padding-right: 45px">
         <div class="row">
             <div class="col-md-10 offset-1">
-                <h3 class="text-center text-light">Phản hồi với chúng tôi</h3>
+                <div>
+                    <h3 class="text-center text-light">Phản hồi với chúng tôi</h3>
+                    <div class="w-25" style="margin: auto; border-bottom: solid 3px #cccccc"></div>
+                </div>
+
                 <form class="border-bottom pb-4" method="POST" action="{{route('frontend.sendMessage')}}">
                     @csrf
                     <div class="form-group">
@@ -30,7 +34,7 @@
     <div style="max-width: 998px; width: 100%; margin: auto" class="mt-3 pb-3">
         <div class="row">
             <div class="col-md-4">
-                <h3 class="ml-3 text-light">Lien he</h3>
+                <h3 class="ml-3 text-light">Liên hệ</h3>
                 <ul class="custom-info">
                     <li>
                         <i class="fab fa-facebook-square custom-color-fb"></i><a href="#"> fb</a>

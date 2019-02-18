@@ -1,3 +1,4 @@
+
 @foreach($posts as $post)
     <div>
         <div class="item">
