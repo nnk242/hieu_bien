@@ -7,11 +7,10 @@ use App\Http\Controllers\Component\InboxAdmin;
 use App\Http\Controllers\Component\MessageAdmin;
 use App\Chat;
 use App\Message;
-use App\Reply;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use Mockery\Exception;
+use Pusher\Pusher;
 
 class InboxController extends Controller
 {
@@ -45,10 +44,6 @@ class InboxController extends Controller
         $item = $this->model()::findorfail($id);
         $chat = Chat::where('client_id', $item->id)->get();
 
-        if($item->status == '0') {
-            $this->changeStatus($item);
-        }
-
         $newInbox = $this->newInbox();
         return view('admin.inbox.show', compact('item', 'newMessage', 'newInbox', 'chat'));
     }
@@ -61,21 +56,52 @@ class InboxController extends Controller
             return redirect()->back()->with('error', 'Xóa thất bại!');
     }
 
-    public function destroyItem($id)
+    public function destroyAll($id)
     {
         $item = $this->model()::findOrFail($id);
 
         if ($item->delete()) {
-            return redirect()->route('messages.index')->with('success', 'Xóa thành công!');
+            return redirect()->route('inbox.index')->with('success', 'Xóa thành công!');
         } else
             return redirect()->back()->with('error', 'Xóa thất bại!');
     }
 
-    public function status(Request $request)
+    public function reply(Request $request)
     {
-        $item = $this->model()::findOrFail($request->id);
-        $this->changeStatus($item);
-        return redirect()->back()->with('success', 'Thay đổi status thành công!');
+        try {
+            $client = $this->model()::findorfail($request->id);
+            Chat::create([
+                'client_id' => $client->id,
+                'message' => $request->message,
+                'user_id' => auth()->user()->id,
+                'type_chat' => 'reply'
+            ]);
+
+            $options = array(
+                'cluster' => 'ap1',
+                'useTLS' => true
+            );
+
+            $pusher = new Pusher(
+                'fff99aade71a480c4189',
+                'c6748fe9b671849f41fa',
+                '716137',
+                $options
+            );
+
+            $data['message'] = $request->message;
+            $data['is'] = true ;
+            $pusher->trigger($client->name, 'my-event', $data);
+
+            return response()->json([
+                'status' => 200,
+            ]);
+        } catch (Exception $exception) {
+            return response()->json([
+                'status' => 500,
+            ]);
+        }
+
     }
 
     private function model()
@@ -83,13 +109,4 @@ class InboxController extends Controller
         return Client::class;
     }
 
-    private function changeStatus($item)
-    {
-        $status = $item->status;
-        $item->update(
-            [
-                'status' => $status == '0' ? '1' : '0'
-            ]
-        );
-    }
 }

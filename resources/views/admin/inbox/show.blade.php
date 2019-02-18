@@ -34,28 +34,28 @@
         </div>
     </div>
     <div class="col-lg-8 offset-2 bg-white float-left p-3">
-
-        <div class="content-message" id="message-cs">
+        <button class="btn btn-danger mb-3" id="removeAll"><i class="fa fa-trash"></i>Xóa tin nhắn</button>
+        <div class="content-message" id="message-cs" style="height: 500px; overflow-y: auto">
             @foreach($chat as $value)
                 @if($value->type_chat == 'reply')
                     <div>
                         <a href="#">{{time_elapsed_string($value->created_at) }}</a>
                     </div>
                     <div class="message-right justify-content-end d-flex bg-warning p-1 border mb-3 w-100">
-                        123123
+                        {{$value->message}}
                     </div>
                 @else
                     <div>
                         <small>{{time_elapsed_string($value->created_at) }}</small>
                     </div>
                     <div class="message-left justify-content-start d-flex bg-light p-1 border mb-3">
-                        2342345342
+                        {{$value->message}}
                     </div>
                 @endif
             @endforeach
         </div>
         <div class="reply-cs">
-            <input class="input-cs" style="border: solid 2px #cccccc">
+            <input class="input-cs" style="border: solid 2px #cccccc" id="input-message">
             <button class="button-cs" id="submit-message">Trả lời</button>
         </div>
 
@@ -63,7 +63,7 @@
     <div id="modal-remove" data-izimodal-title="Bạn chắc chắn muốn xóa?"
          data-izimodal-subtitle="{{$item->name}} # {{$item->ip}}"
          style="display: none">
-        <form METHOD="POST" class="bg-danger" action="{{route('messages.destroy.item', ['id' => $item->id])}}"
+        <form METHOD="POST" class="bg-danger" action="{{route('inbox.destroy.all', ['id' => $item->id])}}"
               id="form-remove">
             {{ csrf_field() }}
             {{ method_field('DELETE') }}
@@ -77,15 +77,30 @@
 @section('js')
     <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
     <script>
-        $(document).on('click', '#removeItem', function (event) {
+        $(document).on('click', '#removeAll', function (event) {
             event.preventDefault()
             $('#modal-remove').iziModal('open')
             console.log($("#id-item").val())
         });
 
         $(document).on('click', '#submit-message', function () {
+            var text_message = $('#input-message').val()
+            console.log(text_message)
             $.ajax({
-                url: '/admin/guest?message=' + text_message,
+                url: '{{route('inbox.reply')}}' + '?message=' + text_message + '&id=' + '{{$item->id}}',
+                method: 'GET',
+                success: function (response) {
+                    // switch (response.status) {
+                    //     case 200:
+                    //         $('#message-cs').append('<div class="message-left justify-content-end d-flex bg-warning p-1 border mb-3">' + text_message + '</div>')
+                    //         break
+                    //     default:
+                    //         $('#message-cs').append('<div class="text-center mb-3 text-danger">Error</div>')
+                    //         break
+                    // }
+                    $('#input-message').val('')
+                }
+
             })
         })
 
@@ -109,10 +124,14 @@
             forceTLS: true
         });
 
-        var channel = pusher.subscribe('my-channel');
+        var channel = pusher.subscribe('{{$item->name}}');
         channel.bind('my-event', function (data) {
-            // alert(JSON.stringify(data));
-            $('#message-cs').append('<div class="message-left justify-content-start d-flex bg-light p-1 border mb-3">' + data.message + '</div>')
+            if (data['is'] == true) {
+                $('#message-cs').append('<div class="message-left justify-content-end d-flex bg-warning p-1 border mb-3">' + data.message + '</div>')
+            } else {
+                $('#message-cs').append('<div class="message-left justify-content-start d-flex bg-light p-1 border mb-3">' + data.message + '</div>')
+            }
         });
+        $('#message-cs').scrollTop($('#message-cs')[0].scrollHeight)
     </script>
 @endsection

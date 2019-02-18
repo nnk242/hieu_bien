@@ -15,7 +15,7 @@ class CreateClientsTable extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 20)->unique();
+            $table->string('name')->unique();
             $table->enum('status', [0, 1])->default(0);
             $table->string('ip');
             $table->timestamps();
@@ -27,6 +27,8 @@ class CreateClientsTable extends Migration
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             $table->string('message');
             $table->enum('type_chat', ['inbox', 'reply'])->default('inbox');
+            $table->integer('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -41,6 +43,5 @@ class CreateClientsTable extends Migration
     {
         Schema::dropIfExists('clients');
         Schema::dropIfExists('chats');
-        Schema::dropIfExists('replies');
     }
 }

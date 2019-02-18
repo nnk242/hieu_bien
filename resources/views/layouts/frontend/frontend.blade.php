@@ -48,10 +48,10 @@
             opacity: 0.9;
             /*overflow-y: auto;*/
             position: fixed;
-            top: 0;
+            max-height: 600px;
+            max-width: 300px;
             right: 0;
             bottom: 0;
-            left: 0;
             background-color: #e9e8ea;
             z-index: 99999;
             width: 100%;
@@ -104,6 +104,7 @@
         .custom-content-chat {
             overflow-y: auto;
             height: 92vh;
+            max-height: 515px;
             float: left;
             width: 100%;
         }
@@ -133,6 +134,28 @@
             padding: 5px;
             margin: 10px 5px;
         }
+
+        .custom-button-call {
+            position: fixed;
+            left: 20px;
+            bottom: 20px;
+        }
+
+        .custom-button-call button {
+            height: 30px;
+            padding: 4px;
+            border: solid 0px;
+            border-radius: 5px;
+        }
+
+        .custom-tranform {
+            color: #ffffff;
+            transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            -webkit-transform: rotate(90deg);
+            -o-transform: rotate(90deg);
+            -ms-transform: rotate(90deg);
+        }
     </style>
 </head>
 <body>
@@ -147,12 +170,19 @@
     @include('layouts.frontend.components.footer')
 </div>
 <div>
+    <div class="custom-button-call">
+        <a href="tel:+84382997997">
+            <button class="bg-success customm"><i class="fa fa-phone custom-tranform"></i> (+84) 382 997 997</button>
+        </a>
+    </div>
+</div>
+<div>
     <div class="custom-chat" id="custom-click">
         <div class="custom-button-chat">
             <i class="fab fa-superpowers"></i>
         </div>
     </div>
-    <div class="custom-body-chat" id="custom-body-chat">
+    <div class="custom-body-chat" id="custom-body-chat" style="display: none">
         <div class="custom-bg-chat">
             <div class="custom-header-chat">
                 <div class="custom-action-chat">
@@ -178,7 +208,7 @@
                                 </div>
                             </div>
                         @else
-                            <div class="custom-message-right-chat">
+                            <div class="custom-message-left-chat">
                                 <div class="custom-item-message-chat">
                                     {{$value->message}}
                                 </div>
@@ -217,6 +247,7 @@
 @yield('js')
 <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
 <script>
+    $('#custom-body-chat').css({'display': 'none'})
     $(document).on('click', '#custom-click', function () {
         $('#custom-body-chat').css({'display': 'block'})
     })
@@ -240,10 +271,6 @@
                             $('.custom-content-chat').scrollTop($('.custom-content-chat')[0].scrollHeight);
                             break
                         case 200:
-                            $('#custom-content-message-chat').append('<div class="custom-message-right-chat">\n' +
-                                '                    <div class="custom-item-message-chat">' + text_message + '</div>\n' +
-                                '                </div>')
-                            $('.custom-content-chat').scrollTop($('.custom-content-chat')[0].scrollHeight)
                             break
                         default:
                             $('#custom-content-message-chat').append('<p class="text-danger text-center">Có lỗi từ server...</p>')
@@ -265,9 +292,21 @@
         forceTLS: true
     });
 
-    var channel = pusher.subscribe('my-channel');
+    var channel = pusher.subscribe('{{request()->session()->get('event-chat')}}');
     channel.bind('my-event', function (data) {
-        alert(JSON.stringify(data));
+        if (data['is'] == true) {
+            $('#custom-content-message-chat').append('<div class="custom-message-left-chat">\n' +
+                '                    <div class="custom-item-message-chat">\n' + data['message'] +
+                '                    </div>\n' +
+                '                </div>')
+            $('.custom-content-chat').scrollTop($('.custom-content-chat')[0].scrollHeight)
+        } else {
+            $('#custom-content-message-chat').append('<div class="custom-message-right-chat">' +
+                '<div class="custom-item-message-chat">' + data['message'] + '</div>\n' +
+                '</div>')
+            $('.custom-content-chat').scrollTop($('.custom-content-chat')[0].scrollHeight)
+        }
+
     });
 </script>
 </body>

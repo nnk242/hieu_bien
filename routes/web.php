@@ -47,11 +47,8 @@ Route::group(['prefix' => 'admin'], function () {
 
     //inbox
     Route::resource('/inbox', 'Admin\InboxController');
-    Route::get('/inbox/new', 'Admin\MessageController@new')->name('inbox.new');
-    Route::get('/inbox/old', 'Admin\MessageController@old')->name('inbox.old');
-    Route::get('/inbox/edit/status', 'Admin\MessageController@status')->name('inbox.status');
-    Route::post('/inbox/reply/{id}', 'Admin\InboxController@reply')->name('inbox.reply');
-    Route::delete('/inbox/destroy/{id}/item', 'Admin\MessageController@destroyItem')->name('inbox.destroy.item');
+    Route::get('/inbox/user/reply', 'Admin\InboxController@reply')->name('inbox.reply');
+    Route::delete('/inbox/destroy/{id}/item', 'Admin\InboxController@destroyAll')->name('inbox.destroy.all');
 
     //post
     Route::resource('/post', 'Admin\PostController');

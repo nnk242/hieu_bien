@@ -181,7 +181,7 @@ class HomeController extends Controller
     public function sendMessage_(Request $request)
     {
         $event_chat = $request->session()->get('event-chat');
-        $client = $this->client()::where('name', $event_chat)->orderby('id', 'desc')->first();
+        $client = $this->client()::where('name', $event_chat)->first();
         if (isset($client)) {
             $timeCreatedAt = $client->created_at->timestamp;
             $client->update([
@@ -200,10 +200,10 @@ class HomeController extends Controller
             ]);
         }
 
-
         $this->chat()::create([
             'client_id' => $client->id,
-            'message' => $request->message
+            'message' => $request->message,
+            'type_chat' => 'inbox'
         ]);
 //
         $options = array(
@@ -218,7 +218,7 @@ class HomeController extends Controller
         );
 
         $data['message'] = $request->message;
-        $pusher->trigger('my-channel', 'my-event', $data);
+        $pusher->trigger($request->session()->get('event-chat'), 'my-event', $data);
 
         return response()->json([
             'status' => 200,

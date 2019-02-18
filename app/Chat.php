@@ -9,5 +9,5 @@ class Chat extends Model
     //
     protected $table = 'chats';
 
-    protected $fillable = ['client_id', 'message', 'type_chat'];
+    protected $fillable = ['client_id', 'message', 'type_chat', 'user_id'];
 }
