@@ -137,8 +137,8 @@
 
         .custom-button-call {
             position: fixed;
-            left: 20px;
-            bottom: 20px;
+            left: 0;
+            bottom: 0;
         }
 
         .custom-button-call button {

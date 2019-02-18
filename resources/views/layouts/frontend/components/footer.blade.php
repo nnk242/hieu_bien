@@ -1,5 +1,5 @@
 <footer>
-    <div class="pt-3 container">
+    <div class="pt-3 container" style="padding-right: 45px">
         <div class="row">
             <div class="col-md-10 offset-1">
                 <h3 class="text-center text-light">Phản hồi với chúng tôi</h3>
@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    <div style="max-width: 998px; width: 100%; margin: auto" class="mt-3">
+    <div style="max-width: 998px; width: 100%; margin: auto" class="mt-3 pb-3">
         <div class="row">
             <div class="col-md-4">
                 <h3 class="ml-3 text-light">Lien he</h3>
