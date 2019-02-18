@@ -23,7 +23,117 @@
     <link href="/frontend/libs/selectize/css/legacy.css" rel="stylesheet"/>
 
     @yield('css')
+    <style>
+        .custom-chat {
+            position: fixed;
+            bottom: 10px;
+            right: 20px;
+            cursor: pointer;
+        }
 
+        .custom-button-chat {
+            width: 50px;
+            height: 50px;
+            border: 1px #cccccc;
+            border-radius: 50%;
+            background-color: #319af0;
+        }
+
+        .custom-button-chat i {
+            font-size: 30px;
+            transform: translate(44%, 37%);
+        }
+
+        .custom-bg-chat {
+            opacity: 0.9;
+            /*overflow-y: auto;*/
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background-color: #e9e8ea;
+            z-index: 99999;
+            width: 100%;
+            height: 100%;
+        }
+
+        .custom-header-chat {
+            background-color: #fff;
+            height: 30px;
+            width: 100%;
+            border-bottom: 1px #000 solid;
+        }
+
+        .custom-close-body-chat > i {
+            position: absolute;
+            color: #ec293c;
+            font-size: 22px;
+            top: 3px;
+            right: 3px;
+            cursor: pointer;
+        }
+
+        .custom-button-send-chat {
+            float: left;
+            width: 100%;
+            padding: 5px;
+        }
+
+        .custom-item-elemt-buttom-chat {
+            width: 100%;
+        }
+
+        .custom-item-elemt-buttom-chat input {
+            width: 79%;
+            padding: 7px;
+            border-bottom-left-radius: 5px;
+            border-top-left-radius: 5px;
+            border: solid 1px #cccccc;
+        }
+
+        .custom-item-elemt-buttom-chat button {
+            width: 19%;
+            border-bottom-right-radius: 5px;
+            border-top-right-radius: 5px;
+            padding: 7px;
+            border: solid 1px #cccccc;
+            background-color: #cccccc;
+        }
+
+        .custom-content-chat {
+            overflow-y: auto;
+            height: 92vh;
+            float: left;
+            width: 100%;
+        }
+
+        .custom-message-left-chat {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .custom-message-right-chat {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .custom-message-left-chat .custom-item-message-chat {
+            background-color: #cccccc;
+        }
+
+        .custom-message-right-chat .custom-item-message-chat {
+            background-color: #ffffff;
+        }
+
+        .custom-message-left-chat .custom-item-message-chat, .custom-message-right-chat .custom-item-message-chat {
+            overflow-wrap: break-word;
+            max-width: 300px;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 10px 5px;
+        }
+    </style>
 </head>
 <body>
 <div id="app">
@@ -35,6 +145,57 @@
         @yield('content')
     </div>
     @include('layouts.frontend.components.footer')
+</div>
+<div>
+    <div class="custom-chat" id="custom-click">
+        <div class="custom-button-chat">
+            <i class="fab fa-superpowers"></i>
+        </div>
+    </div>
+    <div class="custom-body-chat" id="custom-body-chat">
+        <div class="custom-bg-chat">
+            <div class="custom-header-chat">
+                <div class="custom-action-chat">
+                    <div class="custom-close-body-chat">
+                        <i class="fas fa-window-close" id="action-close-body-chat"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="custom-content-chat" id="custom-content-message-chat">
+                <div class="custom-message-left-chat">
+                    <div class="custom-item-message-chat">
+                        <h4 class="text-warning">Nha khoa thẩm mỹ Việt Đức xin chào bạn!</h4><br/>
+                        <p>Chúng tôi có thể giúp gì được bạn?</p>
+                        <p>Bạn có thể nhập số điện thoại để chúng tôi liên lạc với bạn.</p>
+                    </div>
+                </div>
+                @if(isset($chat))
+                    @foreach($chat as $value)
+                        @if($value->type_chat == 'inbox')
+                            <div class="custom-message-right-chat">
+                                <div class="custom-item-message-chat">
+                                    {{$value->message}}
+                                </div>
+                            </div>
+                        @else
+                            <div class="custom-message-right-chat">
+                                <div class="custom-item-message-chat">
+                                    {{$value->message}}
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
+                @endif
+
+            </div>
+            <div class="custom-button-send-chat">
+                <div class="custom-item-elemt-buttom-chat">
+                    <input placeholder="Nhập tin nhắn" id="text-message"/>
+                    <button id="submit_message">Gửi</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -54,6 +215,60 @@
 <script src="/frontend/js/search.js"></script>
 
 @yield('js')
+<script src="https://js.pusher.com/4.4/pusher.min.js"></script>
+<script>
+    $(document).on('click', '#custom-click', function () {
+        $('#custom-body-chat').css({'display': 'block'})
+    })
+    $(document).on('click', '#action-close-body-chat', function () {
+        $('#custom-body-chat').css({'display': 'none'})
+    })
 
+    $('.custom-content-chat').scrollTop($('.custom-content-chat')[0].scrollHeight);
+    $(document).on('click', '#submit_message', function () {
+        var text_message = $('#text-message').val()
+
+        if ($('#text-message').val() != '') {
+
+            $.ajax({
+                url: '/sendMessage/guest?message=' + text_message,
+                method: 'GET',
+                success: function (response) {
+                    switch (response.status) {
+                        case 205:
+                            $('#custom-content-message-chat').append('<p class="text-danger text-center">Bạn gửi tin nhắn quá nhanh...</p>')
+                            $('.custom-content-chat').scrollTop($('.custom-content-chat')[0].scrollHeight);
+                            break
+                        case 200:
+                            $('#custom-content-message-chat').append('<div class="custom-message-right-chat">\n' +
+                                '                    <div class="custom-item-message-chat">' + text_message + '</div>\n' +
+                                '                </div>')
+                            $('.custom-content-chat').scrollTop($('.custom-content-chat')[0].scrollHeight)
+                            break
+                        default:
+                            $('#custom-content-message-chat').append('<p class="text-danger text-center">Có lỗi từ server...</p>')
+                            $('.custom-content-chat').scrollTop($('.custom-content-chat')[0].scrollHeight);
+                            break
+                    }
+                    $('#text-message').val('')
+                }
+
+            })
+        }
+
+    })
+
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('fff99aade71a480c4189', {
+        cluster: 'ap1',
+        forceTLS: true
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function (data) {
+        alert(JSON.stringify(data));
+    });
+</script>
 </body>
 </html>

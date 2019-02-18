@@ -20,9 +20,20 @@ Route::post('/', 'HomeController@sendMessage')->name('frontend.sendMessage');
 
 Route::get('/tag/{tag}', 'HomeController@tag')->name('frontend.tag');
 
+Route::get('/sendMessage/guest', 'HomeController@sendMessage_')->name('frontend.sendMessage');
+
+Route::get('/chat/test', function () {
+    return view('frontend.test');
+});
+Route::get('/chat/test1', function () {
+    return view('frontend.test1');
+});
+
 
 Route::group(['prefix' => 'admin'], function () {
-    Auth::routes();
+    Route::get('/login', 'Auth\LoginController@showLoginForm');
+    Route::post('/login', 'Auth\LoginController@login')->name('login');
+    Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
     //dashboard
     Route::get('/dashboard', 'Admin\DashboardController@index')->name('dashboard');
     Route::post('/dashboard/tag/edit', 'Admin\DashboardController@tag')->name('dashboard.tag.edit');
@@ -33,6 +44,14 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/messages/edit/status', 'Admin\MessageController@status')->name('messages.status');
     Route::post('/messages/reply/{id}', 'Admin\MessageController@reply')->name('messages.reply');
     Route::delete('/messages/destroy/{id}/item', 'Admin\MessageController@destroyItem')->name('messages.destroy.item');
+
+    //inbox
+    Route::resource('/inbox', 'Admin\InboxController');
+    Route::get('/inbox/new', 'Admin\MessageController@new')->name('inbox.new');
+    Route::get('/inbox/old', 'Admin\MessageController@old')->name('inbox.old');
+    Route::get('/inbox/edit/status', 'Admin\MessageController@status')->name('inbox.status');
+    Route::post('/inbox/reply/{id}', 'Admin\InboxController@reply')->name('inbox.reply');
+    Route::delete('/inbox/destroy/{id}/item', 'Admin\MessageController@destroyItem')->name('inbox.destroy.item');
 
     //post
     Route::resource('/post', 'Admin\PostController');

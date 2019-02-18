@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\Http\Controllers\Component\InboxAdmin;
 use App\Http\Controllers\Component\MessageAdmin;
 use App\Http\Controllers\Controller;
 use App\Services\ImgurService;
@@ -21,6 +22,12 @@ class CategoryController extends Controller
         return MessageAdmin::newMessage();
     }
 
+    protected function newInbox()
+    {
+        return InboxAdmin::newInbox();
+    }
+
+
     private function model()
     {
         return Category::class;
@@ -30,7 +37,8 @@ class CategoryController extends Controller
     {
         $posts = $this->model()::paginate(10);
         $newMessage = $this->newMessage();
-        return view('admin.category.index', compact('posts', 'newMessage'));
+        $newInbox = $this->newInbox();
+        return view('admin.category.index', compact('posts', 'newMessage', 'newInbox'));
     }
 
     /**
@@ -41,7 +49,8 @@ class CategoryController extends Controller
     public function create()
     {
         $newMessage = $this->newMessage();
-        return view("admin.category.create", compact('newMessage'));
+        $newInbox = $this->newInbox();
+        return view("admin.category.create", compact('newMessage', 'newInbox'));
     }
 
     /**
@@ -93,7 +102,8 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
         $newMessage = $this->newMessage();
-        return view('admin.category.edit', compact('category', 'newMessage'));
+        $newInbox = $this->newInbox();
+        return view('admin.category.edit', compact('category', 'newMessage', 'newInbox'));
     }
 
 

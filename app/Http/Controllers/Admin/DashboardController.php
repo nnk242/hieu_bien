@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Component\InboxAdmin;
 use App\Http\Controllers\Component\MessageAdmin;
 use App\Message;
 use App\Post;
@@ -27,9 +28,17 @@ class DashboardController extends Controller
         return MessageAdmin::newMessage();
     }
 
+
+    protected function newInbox()
+    {
+        return InboxAdmin::newInbox();
+    }
+
+
     public function index()
     {
         $newMessage = $this->newMessage();
+        $newInbox = $this->newInbox();
         $todayMessage = Message::whereDate('created_at', Carbon::today())->count();
         $yesterdayMessage = Message::whereDate('created_at', '<', Carbon::today())->whereDate('created_at', '>=', Carbon::today()->subDays(1))->count();
 
@@ -37,7 +46,7 @@ class DashboardController extends Controller
         $weekPost = Post::whereDate('created_at', '<=', Carbon::today())->whereDate('created_at', '>=', Carbon::today()->subDays(7))->count();
 
         $tags = Tag::first();
-        return view('admin.dashboard', compact('newMessage', 'todayMessage', 'yesterdayMessage', 'todayPost', 'weekPost', 'tags'));
+        return view('admin.dashboard', compact('newMessage', 'todayMessage', 'yesterdayMessage', 'todayPost', 'weekPost', 'tags', 'newInbox'));
     }
 
     public function changePassword(Request $request)

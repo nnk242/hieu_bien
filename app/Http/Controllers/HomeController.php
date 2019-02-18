@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Chat;
+use App\Client;
 use App\Message;
 use App\Post;
 use App\Tag;
@@ -10,9 +12,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Validator;
+use Pusher\Pusher;
 
 class HomeController extends Controller
 {
+
+    public function event_chat()
+    {
+        session(['event-chat' => 'a_' . str_random(5) . '_' . time() . '_' . str_random(5) . '_b']);
+    }
+
+    public function __construct()
+    {
+        $this->event_chat();
+    }
+
     private function post()
     {
         return Post::class;
@@ -28,23 +42,45 @@ class HomeController extends Controller
         return Tag::class;
     }
 
-    private function tagHome() {
+    private function tagHome()
+    {
         return $this->tags()::first();
     }
 
-    private function top() {
+    private function top()
+    {
         return $this->post()::orderby('view', 'DESC')->take(7)->get();
     }
 
-    public function index()
+    private function chat()
     {
+        return Chat::class;
+    }
+
+    private function client()
+    {
+        return Client::class;
+    }
+
+    public function index(Request $request)
+    {
+        $event_chat = $request->session()->get('event-chat');
+
+        if (isset($event_chat)) {
+            $client = $this->client()::where('name', $event_chat)->first();
+
+            if (isset($client)) {
+                $chat = $this->chat()::where('client_id', $client->id)->get();
+            }
+        }
+
         $tags = ['name' => explode(",", $this->tagHome()->tag),
             'seo' => explode(",", $this->tagHome()->tag_seo)];
         $top = $this->top();
         $posts = $this->post()::where(['slide' => 'hide', 'status' => 'show'])->orderby('id', 'DESC')->paginate(10);
         $slides = $this->post()::where(['slide' => 'show', 'status' => 'show'])->get();
         $categories = $this->category()::all();
-        return view('frontend.index', compact('posts', 'categories', 'slides', 'top', 'tags'));
+        return view('frontend.index', compact('posts', 'categories', 'slides', 'top', 'tags', 'chat'));
     }
 
     public function post_($post)
@@ -53,7 +89,7 @@ class HomeController extends Controller
             'seo' => explode(",", $this->tagHome()->tag_seo)];
         $top = $this->top();
         $post = $this->post()::where(['status' => 'show', 'title_seo' => $post])->first();
-        if(isset($post)) {
+        if (isset($post)) {
             Event::fire(URL::current(), $post);
         }
         $categories = $this->category()::all();
@@ -113,9 +149,9 @@ class HomeController extends Controller
         }
         $timeCreatedAt = Message::where('ip', $request->ip())->orderby('id', 'DESC')->first();
 
-        if(isset($timeCreatedAt)) {
+        if (isset($timeCreatedAt)) {
             $timeCreatedAt = $timeCreatedAt->created_at->timestamp;
-            if($timeCreatedAt >= time() - 60*5) {
+            if ($timeCreatedAt >= time() - 60 * 5) {
                 return redirect()->back()->with('error', 'Gửi tin nhắn qúa nhanh xin vui lòng đọi gửi lại trong 5 phút!');
             }
         }
@@ -140,5 +176,52 @@ class HomeController extends Controller
             ->paginate(10);
         $categories = $this->category()::all();
         return view('frontend.tag', compact('posts', 'categories', 'search', 'top', 'tags', 'tag_'));
+    }
+
+    public function sendMessage_(Request $request)
+    {
+        $event_chat = $request->session()->get('event-chat');
+        $client = $this->client()::where('name', $event_chat)->orderby('id', 'desc')->first();
+        if (isset($client)) {
+            $timeCreatedAt = $client->created_at->timestamp;
+            $client->update([
+                'status' => '0',
+                'ip' => $request->ip()
+            ]);
+            if ($timeCreatedAt >= time() - 5) {
+                return response()->json([
+                    'status' => 205,
+                ]);
+            }
+        } else {
+            $client = $this->client()::create([
+                'name' => $event_chat,
+                'ip' => $request->ip()
+            ]);
+        }
+
+
+        $this->chat()::create([
+            'client_id' => $client->id,
+            'message' => $request->message
+        ]);
+//
+        $options = array(
+            'cluster' => 'ap1',
+            'useTLS' => true
+        );
+        $pusher = new Pusher(
+            'fff99aade71a480c4189',
+            'c6748fe9b671849f41fa',
+            '716137',
+            $options
+        );
+
+        $data['message'] = $request->message;
+        $pusher->trigger('my-channel', 'my-event', $data);
+
+        return response()->json([
+            'status' => 200,
+        ]);
     }
 }

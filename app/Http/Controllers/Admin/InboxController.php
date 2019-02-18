@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Client;
 use App\Http\Controllers\Component\InboxAdmin;
 use App\Http\Controllers\Component\MessageAdmin;
+use App\Chat;
 use App\Message;
+use App\Reply;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
-class MessageController extends Controller
+class InboxController extends Controller
 {
     public function __construct()
     {
@@ -29,19 +33,24 @@ class MessageController extends Controller
     public function index()
     {
         $posts = $this->model()::orderby('status', 'ASC')->orderby('id', 'DESC')->paginate(10);
-        $new = $this->model()::where('status', '0')->count();
-        $old = $this->model()::where('status', '1')->count();
         $newMessage = $this->newMessage();
         $newInbox = $this->newInbox();
-        return view('admin.message.index', compact('newMessage', 'newInbox', 'posts', 'new', 'old'));
+        return view('admin.inbox.index', compact('newMessage', 'newInbox', 'posts'));
     }
 
-    public function show(Message $message)
+    public function show($id)
     {
         $newMessage = $this->newMessage();
-        $item = $this->model()::findOrFail($message->id);
-        $this->changeStatus($item);
-        return view('admin.message.show', compact('message', 'newMessage'));
+
+        $item = $this->model()::findorfail($id);
+        $chat = Chat::where('client_id', $item->id)->get();
+
+        if($item->status == '0') {
+            $this->changeStatus($item);
+        }
+
+        $newInbox = $this->newInbox();
+        return view('admin.inbox.show', compact('item', 'newMessage', 'newInbox', 'chat'));
     }
 
     public function destroy(Message $message)
@@ -71,10 +80,11 @@ class MessageController extends Controller
 
     private function model()
     {
-        return Message::class;
+        return Client::class;
     }
 
-    private function changeStatus($item) {
+    private function changeStatus($item)
+    {
         $status = $item->status;
         $item->update(
             [

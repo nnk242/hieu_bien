@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Category;
+use App\Http\Controllers\Component\InboxAdmin;
 use App\Http\Controllers\Component\MessageAdmin;
 use App\Http\Controllers\Controller;
 use App\Post;
@@ -23,6 +24,11 @@ class PostController extends Controller
         return MessageAdmin::newMessage();
     }
 
+    protected function newInbox()
+    {
+        return InboxAdmin::newInbox();
+    }
+
     public function model()
     {
         return Post::class;
@@ -32,7 +38,8 @@ class PostController extends Controller
     {
         $posts = $this->model()::orderby('id', 'desc')->paginate(10);
         $newMessage = $this->newMessage();
-        return view('admin.post.index', compact('posts', 'newMessage'));
+        $newInbox = $this->newInbox();
+        return view('admin.post.index', compact('posts', 'newMessage', 'newInbox'));
     }
 
     /**
@@ -44,7 +51,8 @@ class PostController extends Controller
     {
         $categories = Category::select('id', 'title')->get();
         $newMessage = $this->newMessage();
-        return view("admin.post.create", compact('newMessage', 'categories'));
+        $newInbox = $this->newInbox();
+        return view("admin.post.create", compact('newMessage', 'categories', 'newInbox'));
     }
 
     /**
@@ -116,7 +124,8 @@ class PostController extends Controller
     {
         $categories = Category::select('id', 'title')->get();
         $newMessage = $this->newMessage();
-        return view('admin.post.edit', compact('post', 'newMessage', 'categories'));
+        $newInbox = $this->newInbox();
+        return view('admin.post.edit', compact('post', 'newMessage', 'categories', 'newInbox'));
     }
 
     /**
@@ -210,6 +219,7 @@ class PostController extends Controller
     {
         $posts = $this->model()::where('slide', 'show')->orderby('id', 'desc')->paginate(10);
         $newMessage = $this->newMessage();
-        return view('admin.post.slide', compact('posts', 'newMessage'));
+        $newInbox = $this->newInbox();
+        return view('admin.post.slide', compact('posts', 'newMessage', 'newInbox'));
     }
 }
