@@ -199,16 +199,18 @@ function newMessage()
 
 function uploadFile($file, $file_name, $folder_public)
 {
-    $file_path = public_path($folder_public) . '/' . \Carbon\Carbon::now()->toDateString();
+    $folder_date = \Carbon\Carbon::now()->toDateString();
+
+    $file_path = public_path($folder_public) . '/' . $folder_date;
 
     $file->move($file_path, $file_name);
 
-    return $folder_public . '/' . \Carbon\Carbon::now()->toDateString() . '/' . $file_name;
+    return '/' . $folder_public . '/' . $folder_date . '/' . $file_name;
 }
 
-function removeFilePublic($file_path)
+function removeFilePublic($dir)
 {
-    unlink(public_path($file_path));
+    \Illuminate\Support\Facades\File::delete(public_path($dir));
 }
 
 ?>

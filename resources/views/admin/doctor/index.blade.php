@@ -29,7 +29,7 @@
                             <tr>
                                 <td>{{$key + 1}}</td>
                                 <td>{{$post->title}}</td>
-                                <td><img src="/{{$post->image}}"></td>
+                                <td><img src="{{$post->image}}"></td>
                                 <td>{{$post->expert}}</td>
                                 <td>{{$post->education}}</td>
                                 <td>{{$post->experience}}</td>

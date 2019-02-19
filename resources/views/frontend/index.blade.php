@@ -25,7 +25,7 @@
                                                 <div class="row description">
                                                     <div class="col-md-4 mb-3">
                                                         <div class="custom-item-img"
-                                                             style="background: url('/{{$value->image}}') no-repeat center; background-size: cover; height: 180px; width: 180px; margin: 0 auto"
+                                                             style="background: url('{{$value->image}}') no-repeat center; background-size: cover; height: 180px; width: 180px; margin: 0 auto"
                                                         ></div>
                                                     </div>
                                                     <div class="col-md-8">
@@ -59,7 +59,7 @@
                                            href="#v-pills-{{$key}}" role="tab" aria-controls="v-pills-{{$key}}"
                                            aria-selected="{{$key==0?'true': 'false'}}">
                                             <div class="custom-item-img"
-                                                 style="background: url('/{{$value->image}}') no-repeat center; background-size: cover; height: 70px; width: 70px; margin: 0 auto">
+                                                 style="background: url('{{$value->image}}') no-repeat center; background-size: cover; height: 70px; width: 70px; margin: 0 auto">
                                             </div>
                                         </a>
                                     @endforeach

@@ -62,7 +62,7 @@
             background-color: #fff;
             height: 30px;
             width: 100%;
-            border-bottom: 1px #000 solid;
+            border: 1px #eac7c7 solid;
         }
 
         .custom-close-body-chat > i {

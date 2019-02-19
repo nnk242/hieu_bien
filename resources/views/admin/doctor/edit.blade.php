@@ -36,7 +36,7 @@
                         </div>
                         <div class="form-group">
                             <div
-                                style="background: url('/{{$doctor->image}}') no-repeat center; background-size: cover; height: 170px; width: 170px; margin: 0 auto"
+                                style="background: url('{{$doctor->image}}') no-repeat center; background-size: cover; height: 170px; width: 170px; margin: 0 auto"
                             ></div>
                         </div>
                         <div class="form-group">

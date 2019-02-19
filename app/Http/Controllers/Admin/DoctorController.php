@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Doctor;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class DoctorController extends Controller
@@ -136,7 +135,7 @@ class DoctorController extends Controller
                 'image' => uploadFile($file, $imageName, 'uploads/image'),
                 'status' => $request->status
             ];
-            File::delete($doctor->image);
+            removeFilePublic($doctor->image);
         } else {
             $data = [
                 'title' => $request->title,
