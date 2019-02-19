@@ -484,6 +484,10 @@ section .slide {
     background-position: center;
     background-attachment: fixed;
     background-color: #dadad6;
+    background-size: contain;
+    -o-background-size: contain;
+    -moz-background-size: contain;
+    -webkit-background-size: contain;
     width: 100vw;
     height: 40vh
 }
@@ -510,6 +514,10 @@ section .slide {
     background-position: center;
     background-repeat: no-repeat;
     background-color: #212529;
+    background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
     border-radius: 3px;
 }
 

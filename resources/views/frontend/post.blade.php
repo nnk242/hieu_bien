@@ -10,7 +10,7 @@
             <div class="content col-md-9">
                 @if(isset($post)!=0)
                     <nav class="breadcrumb">
-                        <a class="breadcrumb-item" href="#">
+                        <a class="breadcrumb-item" href="/">
                             <i class="fa fa-home" aria-hidden="true"></i>
                         </a>
                         @foreach($categories as $category)@if($category->id == $post->category_id)<a
@@ -28,11 +28,13 @@
                                 aria-hidden="true"> {{ time_elapsed_string($post->created_at) }}</i><br/>
                         </span>
                         <div class="tag-item" style="float: none">
-                            @foreach(explode(',', $post->tag) as $key=>$value)
-                                <span class="fa fa-hashtag"></span><a
-                                    href="{{route('frontend.tag', ['tag' => isset(explode(',', $post->tag_seo)[$key])?explode(',', $post->tag_seo)[$key]: 'nhakhoa'])}}"
-                                    title="{{$value}}" data-toggle="tooltip">{{$value}}</a>
-                            @endforeach
+                            @if(isset($post->tag))
+                                @foreach(explode(',', $post->tag) as $key=>$value)
+                                    <span class="fa fa-hashtag"></span><a
+                                        href="{{route('frontend.tag', ['tag' => isset(explode(',', $post->tag_seo)[$key])?explode(',', $post->tag_seo)[$key]: 'nhakhoa'])}}"
+                                        title="{{$value}}" data-toggle="tooltip">{{$value}}</a>
+                                @endforeach
+                            @endif
                         </div>
                     </div>
                     <div class="item">

@@ -8,7 +8,7 @@
                 @foreach($categories as $category)
                     <div class="item-sidebar">
                         <span class="fa fa-arrow-circle-o-right" aria-hidden="true"></span>
-                        <a href="{{route('frontend.category', [''])}}" title="Cấy ghép IMPLANT"
+                        <a href="{{route('frontend.category', ['id' => $category->title_seo])}}" title="Cấy ghép IMPLANT"
                            data-toggle="tooltip">{{$category->title}}</a>
                     </div>
                 @endforeach

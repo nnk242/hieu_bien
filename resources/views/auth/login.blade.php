@@ -34,18 +34,7 @@
                                 </div>
                             </form>
                         </div>
-                        <ul class="auth-footer">
-                            <li>
-                                <a href="#" class="text-dark">Conditions</a>
-                            </li>
-                            <li>
-                                <a href="#" class="text-dark">Help</a>
-                            </li>
-                            <li>
-                                <a href="#" class="text-dark">Terms</a>
-                            </li>
-                        </ul>
-                        <p class="footer-text text-center text-dark">copyright © 2019. All rights reserved.</p>
+                        <p class="footer-text text-center text-dark mt-3">copyright © 2019. All rights reserved.</p>
                     </div>
                 </div>
             </div>

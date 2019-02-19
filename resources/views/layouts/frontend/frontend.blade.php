@@ -199,8 +199,8 @@
                         <p>Bạn có thể nhập số điện thoại để chúng tôi liên lạc với bạn.</p>
                     </div>
                 </div>
-                @if(isset($chat))
-                    @foreach($chat as $value)
+                @if(getChat())
+                    @foreach(getChat() as $value)
                         @if($value->type_chat == 'inbox')
                             <div class="custom-message-right-chat">
                                 <div class="custom-item-message-chat">

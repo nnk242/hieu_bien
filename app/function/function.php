@@ -213,4 +213,16 @@ function removeFilePublic($dir)
     \Illuminate\Support\Facades\File::delete(public_path($dir));
 }
 
+function getChat()
+{
+    $event_chat = request()->session()->get('event-chat');
+    if (isset($event_chat)) {
+        $client = \App\Client::where('name', $event_chat)->first();
+        if (isset($client)) {
+            return \App\Chat::where('client_id', $client->id)->get();
+        }
+    }
+    return false;
+}
+
 ?>

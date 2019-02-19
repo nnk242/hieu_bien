@@ -66,15 +66,6 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $doctor = Doctor::where('status', 'show')->get();
-        $event_chat = $request->session()->get('event-chat');
-
-        if (isset($event_chat)) {
-            $client = $this->client()::where('name', $event_chat)->first();
-
-            if (isset($client)) {
-                $chat = $this->chat()::where('client_id', $client->id)->get();
-            }
-        }
 
         $tags = ['name' => explode(",", $this->tagHome()->tag),
             'seo' => explode(",", $this->tagHome()->tag_seo)];
@@ -82,7 +73,7 @@ class HomeController extends Controller
         $posts = $this->post()::where(['slide' => 'hide', 'status' => 'show'])->orderby('id', 'DESC')->paginate(10);
         $slides = $this->post()::where(['slide' => 'show', 'status' => 'show'])->get();
         $categories = $this->category()::all();
-        return view('frontend.index', compact('posts', 'categories', 'slides', 'top', 'tags', 'chat', 'doctor'));
+        return view('frontend.index', compact('posts', 'categories', 'slides', 'top', 'tags', 'doctor'));
     }
 
     public function post_($post)
