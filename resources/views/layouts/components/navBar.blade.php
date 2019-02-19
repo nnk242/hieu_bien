@@ -13,16 +13,16 @@
                 <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"
                    data-toggle="dropdown">
                     <i class="fa fa-inbox" aria-hidden="true"></i>
-                    @if($newInbox->count() !== 0)<span class="count">{{$newInbox->count()}}</span>@endif
+                    @if(newInbox()->count() !== 0)<span class="count">{{newInbox()->count()}}</span>@endif
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
                      aria-labelledby="notificationDropdown">
                     <a href="{{route('inbox.index')}}" class="dropdown-item">
-                        <p class="mb-0 font-weight-normal float-left">Bạn có {{$newInbox->count()}} tin nhắn mới
+                        <p class="mb-0 font-weight-normal float-left">Bạn có {{newInbox()->count()}} tin nhắn mới
                         </p>
                         <span class="badge badge-pill badge-warning float-right">Xem tất cả</span>
                     </a>
-                    @foreach($newInbox as $key => $value)
+                    @foreach(newInbox() as $key => $value)
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item preview-item" href="{{route('messages.show', ['message' => $value->id])}}">
                             <div class="preview-thumbnail">
@@ -45,16 +45,16 @@
                 <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"
                    data-toggle="dropdown">
                     <i class="mdi mdi-bell"></i>
-                    @if($newMessage->count() !== 0)<span class="count">{{$newMessage->count()}}</span>@endif
+                    @if(newMessage()->count() !== 0)<span class="count">{{newMessage()->count()}}</span>@endif
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
                      aria-labelledby="notificationDropdown">
                     <a href="{{route('messages.index')}}" class="dropdown-item">
-                        <p class="mb-0 font-weight-normal float-left">Bạn có {{$newMessage->count()}} thông báo mới
+                        <p class="mb-0 font-weight-normal float-left">Bạn có {{newMessage()->count()}} thông báo mới
                         </p>
                         <span class="badge badge-pill badge-warning float-right">Xem tất cả</span>
                     </a>
-                    @foreach($newMessage as $key => $value)
+                    @foreach(newMessage() as $key => $value)
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item preview-item" href="{{route('messages.show', ['message' => $value->id])}}">
                             <div class="preview-thumbnail">

@@ -13,23 +13,34 @@
             <div class="card">
                 <div class="card-body">
                     <div class="mb-3">
-                        <a href="{{route('post.index')}}"><button class="btn btn-outline-warning"><i class="fa fa-angle-left"></i>Bài viết</button></a>
-                        <a href="{{route('post.create')}}"><button class="btn btn-outline-success"><i class="fa fa-plus"></i>Bài viết</button></a>
+                        <a href="{{route('doctor.index')}}">
+                            <button class="btn btn-outline-warning"><i class="fa fa-angle-left"></i>Doctor</button>
+                        </a>
+                        <a href="{{route('doctor.create')}}">
+                            <button class="btn btn-outline-success"><i class="fa fa-plus"></i>Tạo doctor</button>
+                        </a>
                     </div>
                     <h4 class="card-title">Sửa bài viết</h4>
                     <p class="card-description">
-                        {{$post->title}}
+                        {{$doctor->title}}
                     </p>
-                    <form class="forms-sample" action="{{ route('post.update', $post->id) }}" method="POST" enctype="multipart/form-data">
+                    <form class="forms-sample" action="{{ route('doctor.update', $doctor->id) }}" method="POST"
+                          enctype="multipart/form-data">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <div class="form-group">
-                            <label for="title">Tiêu đề</label>
-                            <input type="text" class="form-control" id="title" placeholder="Tiêu đề"
-                                   value="{{$post->title}}" name="title" required>
+                            <label for="title">Bác sĩ</label>
+                            <input type="text" class="form-control" id="title" placeholder="Tiêu đề" name="title"
+                                   value="{{$doctor->title}}"
+                                   required>
                         </div>
                         <div class="form-group">
-                            <input name="link_image" hidden>
+                            <div
+                                style="background: url('/{{$doctor->image}}') no-repeat center; background-size: cover; height: 170px; width: 170px; margin: 0 auto"
+                            ></div>
+                        </div>
+                        <div class="form-group">
+                            <input name="image" hidden>
                             <label for="image">Hình ảnh tiêu đề</label>
                             <div class="input-group col-xs-12">
                                 <input type="file" class="form-control" id="image" name="image"
@@ -37,84 +48,46 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="introduce">Giới thiệu bài viết</label>
-                            <textarea class="form-control" id="introduce" rows="2" placeholder="Giới thiệu bài viết"
-                                      name="introduce" required>{{$post->introduce}}</textarea>
+                            <label for="expert">Chuyên khoa</label>
+                            <input type="text" class="form-control" id="expert" placeholder="Chuyên khoa" name="expert"
+                                   value="{{$doctor->expert}}"
+                                   required>
                         </div>
                         <div class="form-group">
-                            <label for="nicEdit">Nội dung</label>
-                            <textarea cols="60" id="nicEdit" style="width: 100%" placeholder="Nội dung" name="content"
-                                      required>{{$post->content}}</textarea>
+                            <label for="education">Học vấn</label>
+                            <input type="text" class="form-control" id="education" placeholder="Học vấn"
+                                   name="education" value="{{$doctor->education}}"
+                                   required>
                         </div>
                         <div class="form-group">
-                            <label for="type">Danh mục bài viết</label>
-                            <select class="form-control" id="category" name="category" required>
-                                @foreach($categories as $category)
-                                    <option value="{{$category->id}}" {{$category->id == $post->category_id ? 'checked' : ''}}>{{$category->title}}</option>
-                                @endforeach
-                            </select>
+                            <label for="experience">Kinh nhiệm</label>
+                            <input type="text" class="form-control" id="experience" placeholder="Kinh nhiệm"
+                                   name="experience" value="{{$doctor->experience}}"
+                                   required>
                         </div>
                         <div class="form-group">
-                            <label>Tác giả... <code>Bạn muốn dùng tên tài khoản hay tên khác?</code></label>
+                            <label for="description">Giới thiệu</label>
+                            <textarea type="text" class="form-control" id="description" placeholder="Giới thiệu"
+                                      name="description" rows="3"
+                                      required>{{$doctor->description}}</textarea>
+                        </div>
+                        <hr/>
+                        <div class="form-group">
+                            <label for="exampleInputCity1">Ẩn hiện doctor</label>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-radio">
                                         <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="author_type" value="no" {{$post->author === Auth::user()->name? 'checked': ''}}> Không
+                                            <input type="radio" class="form-check-input" name="status" value="show"
+                                                   {{$doctor->status == 'show' ? 'checked' : ''}}> Hiện
                                         </label>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-radio">
                                         <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="author_type" value="yes" id="show-input-author" {{$post->author === Auth::user()->name? '': 'checked'}}> Có
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <input type="text" class="form-control" placeholder="Tác giả" {{$post->author === Auth::user()->name? 'hidden': ''}} id="input-author"
-                                   value="{{$post->author}}" name="author">
-                        </div>
-                        <hr/>
-                        <div class="form-group">
-                            <label for="exampleInputCity1">Dùng làm slide</label>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-radio">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="slide" value="show" {{$post->slide == 'show' ? 'checked':''}}> Hiện
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-radio">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="slide" value="hide" {{$post->slide == 'hide' ? 'checked':''}}> Ẩn
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr/>
-                        <div class="form-group">
-                            <label for="title"><i class="fa fa-tag"></i> Tags</label>
-                            <input id="input-tags" class="form-control" name="tags" value="{{$post->tag}}">
-                        </div>
-                        <hr/>
-                        <div class="form-group">
-                            <label for="exampleInputCity1">Ẩn hiện bài viết</label>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-radio">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="status" value="show" {{$post->status == 'show' ? 'checked':''}}> Hiện
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-radio">
-                                        <label class="form-check-label">
-                                            <input type="radio" class="form-check-input" name="status" value="hide" {{$post->status == 'hide' ? 'checked':''}}> Ẩn
+                                            <input type="radio" class="form-check-input" name="status" value="hide"
+                                                {{$doctor->status == 'hide' ? 'checked' : ''}}> Ẩn
                                         </label>
                                     </div>
                                 </div>
@@ -130,23 +103,4 @@
 
 @endsection
 @section('js')
-    @include('components.nicEdit.nicEdit')
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/js/standalone/selectize.min.js"></script>
-    <script>
-        $('#input-tags').selectize({
-            plugins: ['drag_drop', 'remove_button'],
-            delimiter: ',',
-            persist: false,
-            create: function (input) {
-                return {
-                    value: input,
-                    text: input
-                }
-            }
-        })
-        $("input[name='author_type']").on('click', function () {
-            $("#show-input-author:checked").val() === 'yes' ? $('#input-author').removeAttr("hidden") : $('#input-author').attr("hidden", 'true')
-        })
-    </script>
 @endsection

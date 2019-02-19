@@ -51,7 +51,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-12 grid-margin stretch-card">
+        <div class="col-lg-12 grid-margin">
             <div class="card">
                 <div class="card-body">
                     <h4 class="card-title"><i class="fa fa-tags"></i> Tags của trang</h4>
@@ -89,6 +89,52 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-12 grid-margin">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"><i class="fa fa-address-book"></i> Footer của trang</h4>
+                    <label>Sửa footer của trang</label>
+                    <div class="row mb-3">
+                        <div class="col-sm-6">
+                            <div class="form-radio">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="footer_type" value="no" checked>
+                                    Không
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-radio">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="footer_type" value="yes"
+                                           id="show-input-footer"> Có
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <form class="forms-sample" action="{{ route('dashboard.footer.edit') }}" method="POST"
+                          enctype="multipart/form-data" id="form-footer" style="display: none">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            <label for="facebook"><i class="fa fa-facebook text-primary"></i> Facebook</label>
+                            <input type="text" id="facebook" class="form-control" name="facebook" value="{{$footer->facebook}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone"><i class="fa fa-phone-square text-success"></i> Số điện thoại</label>
+                            <input type="text" id="phone" class="form-control" name="phone" value="{{$footer->phone}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="address"><i class="fa fa-map-marker"></i> Địa chỉ</label>
+                            <input type="text" id="address" class="form-control" name="address" value="{{$footer->address}}">
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success mr-2">Submit</button>
+                            <a href="{{\Illuminate\Support\Facades\URL::current()}}" class="btn btn-light" type="reset">Reload</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 @section('js')
@@ -112,6 +158,12 @@
 
         $("input[name='author_type']").on('click', function () {
             $("#show-input-author:checked").val() === 'yes' ? $('#form-tag').css({'display': 'block'}) : $('#form-tag').css({'display': 'none'})
+        })
+
+        $("#show-input-footer:checked").val() === 'yes' ? $('#form-footer').css({'display': 'block'}) : $('#form-footer').css({'display': 'none'})
+
+        $("input[name='footer_type']").on('click', function () {
+            $("#show-input-footer:checked").val() === 'yes' ? $('#form-footer').css({'display': 'block'}) : $('#form-footer').css({'display': 'none'})
         })
     </script>
 @endsection

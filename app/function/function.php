@@ -168,4 +168,47 @@ function strToHex($string)
     return strToUpper($hex);
 }
 
+function footerFrontend()
+{
+    $footer = \App\Footer::first();
+    return [
+        'facebook' => [
+            'content' => $footer->facebook,
+            'icon' => $footer->icon_facebook
+        ],
+        'phone' => [
+            'content' => $footer->phone,
+            'icon' => $footer->icon_number_phone
+        ],
+        'address' => [
+            'content' => $footer->address,
+            'icon' => $footer->icon_address
+        ],
+    ];
+}
+
+function newInbox()
+{
+    return \App\Client::where(['status' => '0'])->get();
+}
+
+function newMessage()
+{
+    return \App\Message::where(['status' => '0'])->get();
+}
+
+function uploadFile($file, $file_name, $folder_public)
+{
+    $file_path = public_path($folder_public) . '/' . \Carbon\Carbon::now()->toDateString();
+
+    $file->move($file_path, $file_name);
+
+    return $folder_public . '/' . \Carbon\Carbon::now()->toDateString() . '/' . $file_name;
+}
+
+function removeFilePublic($file_path)
+{
+    unlink(public_path($file_path));
+}
+
 ?>

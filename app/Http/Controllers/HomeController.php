@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Chat;
 use App\Client;
+use App\Doctor;
 use App\Message;
 use App\Post;
 use App\Tag;
@@ -64,6 +65,7 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
+        $doctor = Doctor::where('status', 'show')->get();
         $event_chat = $request->session()->get('event-chat');
 
         if (isset($event_chat)) {
@@ -80,7 +82,7 @@ class HomeController extends Controller
         $posts = $this->post()::where(['slide' => 'hide', 'status' => 'show'])->orderby('id', 'DESC')->paginate(10);
         $slides = $this->post()::where(['slide' => 'show', 'status' => 'show'])->get();
         $categories = $this->category()::all();
-        return view('frontend.index', compact('posts', 'categories', 'slides', 'top', 'tags', 'chat'));
+        return view('frontend.index', compact('posts', 'categories', 'slides', 'top', 'tags', 'chat', 'doctor'));
     }
 
     public function post_($post)

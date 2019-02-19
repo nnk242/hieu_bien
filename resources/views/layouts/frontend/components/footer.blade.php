@@ -37,19 +37,18 @@
                 <h3 class="ml-3 text-light">Liên hệ</h3>
                 <ul class="custom-info">
                     <li>
-                        <i class="fab fa-facebook-square custom-color-fb"></i><a href="#"> fb</a>
+                        <i class="fab fa-facebook-square custom-color-fb"></i><a href="{{'http://' . footerFrontend()['facebook']['content']}}"> {{footerFrontend()['facebook']['content']}}</a>
                     </li>
                     <li>
-                        <i class="fas fa-phone-volume custom-color-phone"></i><a href="#"> 0123456789</a>
+                        <i class="fas fa-phone-volume custom-color-phone"></i><a href="tel:{{footerFrontend()['phone']['content']}}"> {{footerFrontend()['phone']['content']}}</a>
                     </li>
                 </ul>
             </div>
             <div class="col-md-4">
-                <h3 class="ml-3 text-light">Dia chi</h3>
+                <h3 class="ml-3 text-light">Địa chỉ</h3>
                 <ul class="custom-info">
                     <li>
-                        <i class="fas fa-map-marker-alt text-success"></i><a href="#"> tetetajdjasdjjadjklalsdhl
-                            jasdjk asdha</a>
+                        <i class="fas fa-map-marker-alt text-success"></i><a href="#"> {{footerFrontend()['address']['content']}}</a>
                     </li>
                 </ul>
             </div>

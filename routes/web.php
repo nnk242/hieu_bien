@@ -37,6 +37,7 @@ Route::group(['prefix' => 'admin'], function () {
     //dashboard
     Route::get('/dashboard', 'Admin\DashboardController@index')->name('dashboard');
     Route::post('/dashboard/tag/edit', 'Admin\DashboardController@tag')->name('dashboard.tag.edit');
+    Route::post('/dashboard/footer/edit', 'Admin\DashboardController@footer')->name('dashboard.footer.edit');
     //message
     Route::resource('/messages', 'Admin\MessageController');
     Route::get('/messages/new', 'Admin\MessageController@new')->name('messages.new');
@@ -55,6 +56,11 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/post/edit/changeStatus', 'Admin\PostController@changeStatus')->name('post.changeStatus');
     Route::get('/post/edit/changeSlide', 'Admin\PostController@changeSlide')->name('post.changeSlide');
     Route::get('/post/active/slide', 'Admin\PostController@activeSlide')->name('post.activeSlide');
+
+    //doctor
+    Route::resource('/doctor', 'Admin\DoctorController');
+    Route::get('/doctor/edit/changeStatus', 'Admin\DoctorController@changeStatus')->name('doctor.changeStatus');
+
 
     //category
     Route::resource('/category', 'Admin\CategoryController');

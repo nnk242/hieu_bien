@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Footer;
 use App\Http\Controllers\Component\InboxAdmin;
 use App\Http\Controllers\Component\MessageAdmin;
 use App\Message;
@@ -46,7 +47,8 @@ class DashboardController extends Controller
         $weekPost = Post::whereDate('created_at', '<=', Carbon::today())->whereDate('created_at', '>=', Carbon::today()->subDays(7))->count();
 
         $tags = Tag::first();
-        return view('admin.dashboard', compact('newMessage', 'todayMessage', 'yesterdayMessage', 'todayPost', 'weekPost', 'tags', 'newInbox'));
+        $footer = Footer::first();
+        return view('admin.dashboard', compact('newMessage', 'todayMessage', 'yesterdayMessage', 'todayPost', 'weekPost', 'tags', 'newInbox', 'footer'));
     }
 
     public function changePassword(Request $request)
@@ -96,6 +98,20 @@ class DashboardController extends Controller
             return redirect()->back()->with('success', 'Thay đổi tag thành công!');
         } catch (Exception $exception) {
             return redirect()->back()->with('error', 'Đã có lỗi xảy ra!!');
+        }
+    }
+
+    public function footer(Request $request)
+    {
+        try {
+            Footer::first()->update([
+                'facebook' => $request->facebook,
+                'phone' => $request->phone,
+                'address' => $request->address,
+            ]);
+            return redirect()->back()->with('success', 'Thay đổi Footer thành công!');
+        } catch (\Exception $exception) {
+            return redirect()->back()->with('error', 'Thay đổi Footer thất bại!');
         }
     }
 }

@@ -7,18 +7,19 @@
                 <p class="card-description">
                     <code>.Có tổng {{$posts->total()}} bài viết</code>
                 </p>
-                <a href="{{route('post.activeSlide')}}"><button class="btn btn-outline-primary">Slide đang hoạt động</button></a>
-                <a href="{{route('post.create')}}"><button class="btn btn-outline-success"><i class="fa fa-plus"></i>Thêm bài viết</button></a>
+                <a href="{{route('doctor.create')}}"><button class="btn btn-outline-success"><i class="fa fa-plus"></i>Thêm bài viết</button></a>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
                         <tr>
                             <th>###</th>
                             <th>Tiêu đề</th>
+                            <th>Hình ảnh</th>
+                            <th>Chuyên khoa</th>
+                            <th>Học vấn</th>
+                            <th>Kinh nhiệm</th>
                             <th>Giới thiệu</th>
-                            <th>Nội dung</th>
-                            <th>Status</th>
-                            <th>Slide</th>
+                            <th>Ẩn, hiện</th>
                             <th>Ngày tạo</th>
                             <th>Hành động</th>
                         </tr>
@@ -28,23 +29,20 @@
                             <tr>
                                 <td>{{$key + 1}}</td>
                                 <td>{{$post->title}}</td>
-                                <td>{{$post->introduce}}</td>
-                                <td>{!! str_limit(strip_tags($post->content), $limit = 50, $end = '...') !!}</td>
+                                <td><img src="/{{$post->image}}"></td>
+                                <td>{{$post->expert}}</td>
+                                <td>{{$post->education}}</td>
+                                <td>{{$post->experience}}</td>
+                                <td>{!! str_limit(strip_tags($post->description), $limit = 50, $end = '...') !!}</td>
                                 <td>
-                                    <a href="{{route('post.changeStatus', ['id' => $post->id])}}"
+                                    <a href="{{route('doctor.changeStatus', ['id' => $post->id])}}"
                                        class="badge {{$post->status == 'show'? 'badge-warning' : 'badge-secondary'}}">{{$post->status}}</a>
-                                </td>
-                                <td>
-                                    <a href="{{route('post.changeSlide', ['id' => $post->id])}}"
-                                       class="badge {{$post->slide == 'show'? 'badge-warning' : 'badge-secondary'}}">{{$post->slide}}</a>
                                 </td>
                                 <td>
                                     <label class="badge badge-success">{{$post->created_at}}</label>
                                 </td>
                                 <td>
-                                    <label title="Xem" href="#" class="badge badge-info"><i
-                                            class="fa fa-eye"></i></label>
-                                    <a title="Sửa" href="{{route('post.edit', $post->id)}}" class="badge badge-primary"><i
+                                    <a title="Sửa" href="{{route('doctor.edit', $post->id)}}" class="badge badge-primary"><i
                                             class="fa fa-pencil-square-o"></i></a>
                                     <a title="Xóa" href="#" class="badge badge-danger removeItem"
                                        data-id="{{$post->id}}" data-title="{{$post->title}}"><i
