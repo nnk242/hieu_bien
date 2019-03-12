@@ -38,9 +38,10 @@
                                       name="introduce" required></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="nicEdit">Nội dung</label>
-                            <textarea cols="60" id="nicEdit" style="width: 100%" placeholder="Nội dung" name="content"
-                                      required>content</textarea>
+                            {{--<label for="nicEdit">Nội dung</label>--}}
+                            {{--<textarea cols="60" id="nicEdit" style="width: 100%" placeholder="Nội dung" name="content"--}}
+                                      {{--required>content</textarea>--}}
+                            <textarea id="my-editor" name="content" class="form-control">{!! old('content', 'test editor content') !!}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="type">Danh mục bài viết</label>
@@ -130,9 +131,10 @@
 
 @endsection
 @section('js')
-    @include('components.nicEdit.nicEdit')
+    {{--@include('components.nicEdit.nicEdit')--}}
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/js/standalone/selectize.min.js"></script>
+    <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
     <script>
         $('#input-tags').selectize({
             plugins: ['drag_drop', 'remove_button'],
@@ -149,5 +151,17 @@
         $("input[name='author_type']").on('click', function () {
             $("#show-input-author:checked").val() === 'yes' ? $('#input-author').removeAttr("hidden") : $('#input-author').attr("hidden", 'true')
         })
+    </script>
+
+    <script>
+        var options = {
+            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+            filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+            filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+        };
+    </script>
+    <script>
+        CKEDITOR.replace('my-editor', options);
     </script>
 @endsection

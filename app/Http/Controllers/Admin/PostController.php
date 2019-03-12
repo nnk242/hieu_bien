@@ -10,6 +10,7 @@ use App\Post;
 use App\Services\ImgurService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
@@ -82,6 +83,9 @@ class PostController extends Controller
         }
         $tag_seo = implode(',', $tags);
 
+        $file = $request->file('image');
+        $imageName = time() . '_' . str_random(7) . '.' . $file->getClientOriginalExtension();
+
         $data = [
             'title' => $request->title,
             'title_seo' => $this->model()::where('title_seo', str_seo($request->title))->count() == 0 ?
@@ -95,13 +99,14 @@ class PostController extends Controller
             'tag' => $tag,
             'tag_seo' => $tag_seo,
             'user_id' => Auth::id(),
-            'category_id' => $request->category
+            'category_id' => $request->category,
+            'image' => uploadFile($file, $imageName, 'uploads/image'),
         ];
 
-        if (isset($items['image'])) {
-            $image = ['image' => str_replace('https://', '', ImgurService::uploadImage($items['image']->getRealPath()))];
-            $data = array_merge_recursive($image, $data);
-        }
+//        if (isset($items['image'])) {
+//            $image = ['image' => str_replace('https://', '', ImgurService::uploadImage($items['image']->getRealPath()))];
+//            $data = array_merge_recursive($image, $data);
+//        }
         $this->model()::create($data);
 
         return redirect()->back()->with('success', 'Thêm thành công!');
@@ -138,7 +143,7 @@ class PostController extends Controller
         $validator = Validator::make($items, [
             'title' => 'required',
             'introduce' => 'required',
-            'content' => 'required'
+            'content' => 'required',
         ]);
         if ($validator->fails()) {
             return redirect()->back()->with('error', 'Sửa thất bại!');
@@ -171,7 +176,16 @@ class PostController extends Controller
         ];
 
         if (isset($items['image'])) {
-            $image = ['image' => str_replace('https://', '', ImgurService::uploadImage($items['image']->getRealPath()))];
+            $validator = Validator::make($items, [
+                'image' => 'mimes:jpeg,jpg,png,gif|max:20000'
+            ]);
+            if ($validator->fails()) {
+                return redirect()->back()->with('error', 'Sửa thất bại với file ảnh bạn upload!');
+            }
+
+            $file = $request->file('image');
+            $imageName = time() . '_' . str_random(7) . '.' . $file->getClientOriginalExtension();
+            $image = ['image' => uploadFile($file, $imageName, 'uploads/image'),];
             $data = array_merge_recursive($image, $data);
         }
         $post->update($data);
@@ -181,7 +195,9 @@ class PostController extends Controller
 
     public function destroy(Post $post)
     {
+        $re = $post;
         if ($post->delete()) {
+            File::delete(public_path($re->image));
             return redirect()->back()->with('success', 'Xóa thành công!');
         } else
             return redirect()->back()->with('error', 'Xóa thất bại!');

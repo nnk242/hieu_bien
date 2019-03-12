@@ -24,7 +24,7 @@
                     </a>
                     @foreach(newInbox() as $key => $value)
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item preview-item" href="{{route('messages.show', ['message' => $value->id])}}">
+                        <a class="dropdown-item preview-item" href="{{route('inbox.show', ['message' => $value->id])}}">
                             <div class="preview-thumbnail">
                                 <div class="preview-icon bg-warning">
                                     <i class="mdi mdi-comment-text-outline mx-0"></i>

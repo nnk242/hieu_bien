@@ -45,5 +45,11 @@
                 <span class="menu-title">Bảng giá</span>
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('doctor.index')}}">
+                <i class="menu-icon fa fa-user-md" aria-hidden="true"></i>
+                <span class="menu-title">Giới thiệu bác sĩ</span>
+            </a>
+        </li>
     </ul>
 </nav>

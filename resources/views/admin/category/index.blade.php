@@ -67,7 +67,6 @@
 @endsection
 @section('js')
     <script>
-
         $(document).on('click', '.removeItem', function (event) {
             event.preventDefault()
             var title = $(this).data("title")

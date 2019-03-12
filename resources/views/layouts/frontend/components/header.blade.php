@@ -1,7 +1,7 @@
 <header style="background-color: #f8f9fa">
     <div class="custom-header">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="/"><img src="" alt="logo"></a>
+            <a class="navbar-brand" href="/"><img src="logo.png" alt="logo" width="40"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">

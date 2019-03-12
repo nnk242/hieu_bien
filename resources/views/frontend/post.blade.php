@@ -38,9 +38,9 @@
                         </div>
                     </div>
                     <div class="item">
-                        <p class="content-story">
+                        <div class="content-story">
                             {!! $post->content !!}
-                        </p>
+                        </div>
                     </div>
                 @else
                     <a href="{{url('/')}}" title="Trang chủ." data-toggle="tooltip"><h5>Bài viết không tồn tại...</h5>

@@ -13,8 +13,9 @@
                         <div class="carousel-inner">
                             @foreach($slides as $key=>$slide)
                                 <div class="carousel-item {{$key==0? 'active' : ''}}">
+                                    {{--<img style="width: 100%" src="{{$slide->image? $slide->image: 'https://nhakhoafamily.vn/wp-content/uploads/2019/03/banner-ct-moi.jpg'}}">--}}
                                     <div class="custom-carousel"
-                                         style="background-image: url({{$slide->image? $slide->image: 'https://66.media.tumblr.com/948e0c698f664e6df4856a23e25d039d/tumblr_pkdnm1hOgl1rogvb0o1_1280.jpg'}});"></div>
+                                         style="background-image: url({{$slide->image? $slide->image: 'https://nhakhoafamily.vn/wp-content/uploads/2019/03/banner-ct-moi.jpg'}});"></div>
                                     <div class="carousel-caption">
                                         <a href="{{route('frontend.post', ['post' => $slide->title_seo])}}"><h3>{{$slide->title}}</h3></a>
                                         <a href="{{route('frontend.post', ['post' => $slide->title_seo])}}">{{$slide->introduce}}</a>

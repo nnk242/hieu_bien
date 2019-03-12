@@ -482,14 +482,14 @@ section .slide {
 .custom-carousel {
     background-repeat: no-repeat;
     background-position: center;
-    background-attachment: fixed;
+    /*background-attachment: fixed;*/
     background-color: #dadad6;
-    background-size: contain;
-    -o-background-size: contain;
-    -moz-background-size: contain;
-    -webkit-background-size: contain;
+    background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
     width: 100vw;
-    height: 40vh
+    height: 60vh
 }
 
 .custom-info li {
@@ -528,6 +528,7 @@ section .slide {
 }
 
 .content-story img {
-    width: 100%;
+    width: 100% !important;
+    height: auto !important;
     padding: 10px;
 }

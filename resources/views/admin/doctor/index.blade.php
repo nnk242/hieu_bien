@@ -3,10 +3,7 @@
     <div class="col-lg-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Bài viết</h4>
-                <p class="card-description">
-                    <code>.Có tổng {{$posts->total()}} bài viết</code>
-                </p>
+                <h4 class="card-title">Bác sĩ</h4>
                 <a href="{{route('doctor.create')}}"><button class="btn btn-outline-success"><i class="fa fa-plus"></i>Thêm bài viết</button></a>
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -61,7 +58,7 @@
     </div>
     <div id="modal-remove" data-izimodal-title="Bạn chắc chắn muốn xóa?" data-izimodal-subtitle=""
          style="display: none">
-        <form METHOD="POST" class="bg-danger" action="{{route('post.destroy', ['id' => 1])}}" id="form-remove">
+        <form METHOD="POST" class="bg-danger" action="{{route('doctor.destroy', ['id' => 1])}}" id="form-remove">
             {{ csrf_field() }}
             {{ method_field('DELETE') }}
             <div class="text-center p-2">

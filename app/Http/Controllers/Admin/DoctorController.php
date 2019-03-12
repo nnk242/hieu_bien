@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Doctor;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class DoctorController extends Controller
@@ -159,7 +160,12 @@ class DoctorController extends Controller
      */
     public function destroy(Doctor $doctor)
     {
-        //
+        $re = $doctor;
+        if ($doctor->delete()) {
+            File::delete(public_path($re->image));
+            return redirect()->back()->with('success', 'Xóa thành công!');
+        } else
+            return redirect()->back()->with('error', 'Xóa thất bại!');
     }
 
     public function changeStatus(Request $request)

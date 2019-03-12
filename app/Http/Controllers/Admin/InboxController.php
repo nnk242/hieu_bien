@@ -42,7 +42,12 @@ class InboxController extends Controller
         $newMessage = $this->newMessage();
 
         $item = $this->model()::findorfail($id);
+
         $chat = Chat::where('client_id', $item->id)->get();
+
+        $item->update(
+            ['status' => '1']
+        );
 
         $newInbox = $this->newInbox();
         return view('admin.inbox.show', compact('item', 'newMessage', 'newInbox', 'chat'));
@@ -90,7 +95,7 @@ class InboxController extends Controller
             );
 
             $data['message'] = $request->message;
-            $data['is'] = true ;
+            $data['is'] = true;
             $pusher->trigger($client->name, 'my-event', $data);
 
             return response()->json([
