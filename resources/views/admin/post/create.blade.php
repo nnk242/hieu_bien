@@ -38,9 +38,7 @@
                                       name="introduce" required></textarea>
                         </div>
                         <div class="form-group">
-                            {{--<label for="nicEdit">Nội dung</label>--}}
-                            {{--<textarea cols="60" id="nicEdit" style="width: 100%" placeholder="Nội dung" name="content"--}}
-                                      {{--required>content</textarea>--}}
+                            <label for="my-editor">Nội dung</label>
                             <textarea id="my-editor" name="content" class="form-control">{!! old('content', 'test editor content') !!}</textarea>
                         </div>
                         <div class="form-group">
@@ -131,10 +129,9 @@
 
 @endsection
 @section('js')
-    {{--@include('components.nicEdit.nicEdit')--}}
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.1/js/standalone/selectize.min.js"></script>
-    <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+    <script src="/admin/js/jqueryui/jquery-ui.min.js"></script>
+    <script src="/admin/js/selectize/selectize.min.js"></script>
+    <script src="/admin/ckeditor/ckeditor.js"></script>
     <script>
         $('#input-tags').selectize({
             plugins: ['drag_drop', 'remove_button'],

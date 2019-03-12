@@ -17,7 +17,7 @@
     <!-- plugin css for this page -->
     <link rel="stylesheet" href="/admin/vendors/iconfonts/font-awesome/css/font-awesome.css">
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/css/iziModal.min.css"/>
+    <link rel="stylesheet" href="/admin/css/izimodal/iziModal.min.css"/>
     <!-- inject:css -->
     <link rel="stylesheet" href="/admin/css/style.css">
     <!-- endinject -->
@@ -65,7 +65,7 @@
 <script src="/admin/vendors/js/vendor.bundle.addons.js"></script>
 <!-- endinject -->
 <!-- inject:js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/izimodal/1.5.1/js/iziModal.min.js"></script>
+<script src="/admin/js/izimodal/iziModal.min.js"></script>
 <script src="/admin/js/misc.js"></script>
 <!-- endinject -->
 <!-- Custom -->
