@@ -12,7 +12,7 @@ a.navbar-brand:hover {
 
 a:hover {
     text-decoration: none;
-    color: blue !important;
+    color: #f4cc73 !important;
 }
 
 a.tag-story {
@@ -29,15 +29,15 @@ p[data-id], p[data-id] ~ p {
 
 button#search-story {
     color: black;
-    border-color: #ccc;
+    border-color: #f4cc73;
 }
 
 button#search-story:hover {
-    background: #ccc;
+    background: #f4cc73;
 }
 
 .selectize-input.input-active:hover {
-    border-color: #ccc !important;
+    border-color: #f4cc73 !important;
 }
 
 .sticky {
@@ -67,14 +67,14 @@ button#search-story:hover {
 }
 
 .selectize-dropdown-content .active {
-    background: #ccc;
+    background: #f4cc73;
 }
 
 .sidebar-title, .content-title {
     font-size: 20px;
-    background: #ccc;
+    background: #f4cc73;
     padding: 5px 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #f4cc73;
     border-bottom: 0;
     margin-bottom: 0;
 }
@@ -88,14 +88,14 @@ button#search-story:hover {
 }
 
 .item-sidebar {
-    border: 1px solid #ccc;
+    border: 1px solid #f4cc73;
     border-bottom: 0;
     padding: 5px 10px;
     position: relative;
 }
 
 .item-sidebar:last-child {
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #f4cc73;
 }
 
 .rank-story-sidebar {
@@ -141,7 +141,7 @@ p.name {
 
 .wrap main .content .item {
     padding: 5px 10px 15px 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #f4cc73;
     margin-bottom: 8px;
 }
 
@@ -151,7 +151,7 @@ p.name {
 
 .wrap main .content .item .row.description {
     margin-bottom: 0px;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #f4cc73;
     padding-top: 5px;
 }
 
@@ -163,7 +163,7 @@ p.name {
 
 .custom-pagination li, .pagination li {
     margin-left: -1px;
-    border-right: 1px solid #ccc !important;
+    border-right: 1px solid #f4cc73 !important;
     margin-bottom: 5px;
 }
 
@@ -172,7 +172,7 @@ p.name {
 }
 
 ul.pagination li {
-    border: 1px solid #ccc;
+    border: 1px solid #f4cc73;
     border-right: 0;
     min-width: 43px;
     text-align: center;
@@ -184,13 +184,13 @@ ul.pagination li:first-child {
 }
 
 ul.pagination li:last-child {
-    border-right: 1px solid #ccc;
+    border-right: 1px solid #f4cc73;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
 }
 
 ul.pagination li.disabled {
-    background: #ccc !important;
+    background: #f4cc73 !important;
     color: black;
     cursor: not-allowed;
 }
@@ -214,7 +214,7 @@ ul.pagination li a {
 }
 
 #story .breadcrumb {
-    background: #ccc;
+    background: #f4cc73;
     border-radius: 0;
     margin-bottom: 0;
 }
@@ -315,18 +315,13 @@ footer span {
 
 .tag-story {
     background: #fff;
-    border: solid 1px #ff3d7c;
+    border: solid 1px #f4cc73;
     border-radius: 5px;
 }
 
 .tag-story:hover {
     transition: 0.5s;
-    background: #ccc;
-}
-
-#truyenxxx {
-    color: #ff6666 !important;
-    font-size: 40px;
+    background: #f4cc73;
 }
 
 .text-bot {
@@ -374,12 +369,12 @@ footer span {
     background-color: #fff;
     border-radius: 5px;
     padding: 0 3px;
-    border: solid 1px #ff3d7c;
+    border: solid 1px #f4cc73;
 }
 
 .tag-item a:hover {
     transition: 0.5s;
-    background-color: #ccc;
+    background-color: #f4f2d6;
 }
 
 h2.name {
@@ -531,4 +526,9 @@ section .slide {
     width: 100% !important;
     height: auto !important;
     padding: 10px;
+}
+
+.content-story table {
+    margin: 0 auto;
+    width: 90% !important;
 }

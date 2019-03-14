@@ -16,6 +16,7 @@ class CreatePricesTable extends Migration
         Schema::create('types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 255);
+            $table->string('name_seo', 255);
             $table->timestamps();
         });
 
@@ -24,7 +25,11 @@ class CreatePricesTable extends Migration
             $table->string('name', 255);
             $table->string('description', 255)->nullable();
             $table->string('price');
-            $table->enum('per', ['răng', 'cặp', 'hàm']);
+            $table->enum('per', ['răng', 'cặp', 'hàm', 'trọn gói']);
+            $table->string('discount')->default('0');
+            $table->string('into_money');
+            $table->integer('date_start')->nullable();
+            $table->integer('date_end')->nullable();
             $table->integer('type_id')->unsigned();
             $table->foreign('type_id')->references('id')->on('types')->onDelete('cascade');
             $table->enum('status', ['show', 'hide']);

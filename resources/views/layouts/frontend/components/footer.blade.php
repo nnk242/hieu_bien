@@ -33,7 +33,7 @@
     </div>
     <div style="max-width: 998px; width: 100%; margin: auto" class="mt-3 pb-3">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <h3 class="ml-3 text-light">Liên hệ</h3>
                 <ul class="custom-info">
                     <li>
@@ -44,22 +44,11 @@
                     </li>
                 </ul>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <h3 class="ml-3 text-light">Địa chỉ</h3>
                 <ul class="custom-info">
                     <li>
                         <i class="fas fa-map-marker-alt text-success"></i><a href="#"> {{footerFrontend()['address']['content']}}</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <h3 class="ml-3 text-light">Thong tin ho tro</h3>
-                <ul class="custom-info">
-                    <li>
-                        <i class="fas fa-arrow-right text-info"></i><a href="#"> Lien he nha khoa</a>
-                    </li>
-                    <li>
-                        <i class="fas fa-arrow-right text-info"></i><a href="#"> Dieu khoan dich vu</a>
                     </li>
                 </ul>
             </div>

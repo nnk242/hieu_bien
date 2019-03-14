@@ -9,5 +9,5 @@ class Price extends Model
     //
     protected $table = 'prices';
 
-    protected $fillable = ['name', 'description', 'price', 'per', 'type_id', 'status'];
+    protected $fillable = ['name', 'description', 'price', 'per', 'discount', 'into_money', 'type_id', 'status'];
 }

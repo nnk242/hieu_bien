@@ -30,11 +30,11 @@ class CreatePostsTable extends Migration
         //init category
         \Illuminate\Support\Facades\DB::table('categories')->insert([
             [
-                'title' => 'test',
-                'title_seo' => 'test',
-                'introduce' => 'Admin',
-                'content' => 'Admin',
-                'author' => 'Admin',
+                'title' => 'Dịch vụ niềng răng',
+                'title_seo' => 'dich-vu-nieng-rang',
+                'introduce' => 'Dịch vụ niềng răng',
+                'content' => 'Dịch vụ niềng răng',
+                'author' => 'Dịch vụ niềng răng',
                 'user_id' => 1,
                 'status' => 'show',
             ]

@@ -50,7 +50,7 @@ class HomeController extends Controller
 
     private function top()
     {
-        return $this->post()::orderby('view', 'DESC')->take(7)->get();
+        return $this->post()::where(['slide'=> 'hide', 'status' => 'show'])->orderby('view', 'DESC')->take(7)->get();
     }
 
     private function chat()

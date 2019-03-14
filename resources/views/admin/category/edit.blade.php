@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
     <div class="justify-content-center row">
-        <div class="col-md-6 grid-margin stretch-card">
+        <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
                     <div class="mb-3">
@@ -34,9 +34,9 @@
                                       name="introduce" required>{{$category->introduce}}</textarea>
                         </div>
                         <div class="form-group">
-                            <label for="nicEdit">Nội dung</label>
-                            <textarea cols="60" id="nicEdit" style="width: 100%" placeholder="Nội dung" name="content"
-                                      required>{{$category->content}}</textarea>
+                            <label for="my-editor">Nội dung</label>
+                            <textarea cols="60" id="my-editor" style="width: 100%" placeholder="Nội dung" name="content"
+                                      required>{!! old('content', $category->content) !!}</textarea>
                         </div>
                         <div class="form-group">
                             <label>Tác giả... <code>Bạn muốn dùng tên tài khoản hay tên khác?</code></label>
@@ -89,10 +89,22 @@
 
 @endsection
 @section('js')
-    @include('components.nicEdit.nicEdit')
+    <script src="/admin/ckeditor/ckeditor.js"></script>
     <script>
         $("input[name='author_type']").on('click', function () {
             $("#show-input-author:checked").val() === 'yes' ? $('#input-author').removeAttr("hidden") : $('#input-author').attr("hidden", 'true')
         })
+
+    </script>
+    <script>
+        var options = {
+            filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+            filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+            filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+            filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+        };
+    </script>
+    <script>
+        CKEDITOR.replace('my-editor', options);
     </script>
 @endsection

@@ -185,9 +185,10 @@ class PostController extends Controller
 
             $file = $request->file('image');
             $imageName = time() . '_' . str_random(7) . '.' . $file->getClientOriginalExtension();
-            $image = ['image' => uploadFile($file, $imageName, 'uploads/image'),];
+            $image = ['image' => uploadFile($file, $imageName, 'uploads/image')];
             $data = array_merge_recursive($image, $data);
         }
+        File::delete(public_path($post->image));
         $post->update($data);
 
         return redirect()->back()->with('success', 'Sửa thành công!');

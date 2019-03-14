@@ -53,17 +53,37 @@ class PriceController extends Controller
             'type' => 'required',
             'status' => 'required'
         ]);
+        if ($request->dates) {
+            $dates = explode('-', $request->dates);
+            $start_day = strtotime($dates[0]);
+            $end_day = strtotime($dates[1] . ' + ' . 1 . ' days');
+        }
+
         if ($validator->fails()) {
             return redirect()->back()->with('error', serialize($validator->errors()->getMessages()));
+        }
+
+        if ($request->per == '1') {
+            $per = 'răng';
+        } elseif ($request->per == '2') {
+            $per = 'cặp';
+        } elseif ($request->per == '3') {
+            $per = 'hàm';
+        } else {
+            $per = 'trọn gói';
         }
 
         $data = [
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
-            'per' => $request->per == '1' ? 'răng' : $request->per == '2' ? 'cặp' : 'hàm',
+            'per' => $per,
             'type_id' => $request->type,
-            'status' => $request->status
+            'status' => $request->status,
+            'discount' => $request->discount,
+            'into_money' => $request->tg,
+            'date_start' => isset($start_day) ? $start_day : '',
+            'date_end' => isset($end_day) ? $end_day : '',
         ];
         $this->model()::create($data);
         return redirect()->back()->with('success', 'Thêm giá thành công!');
@@ -158,6 +178,7 @@ class PriceController extends Controller
         $newMessage = $this->newMessage();
         return view('admin.price.editType', compact('type', 'newMessage'));
     }
+
     public function updateType(Request $request, Type $type)
     {
         $items = $request->all();
